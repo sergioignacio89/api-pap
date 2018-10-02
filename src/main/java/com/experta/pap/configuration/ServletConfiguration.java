@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.tutorial.web")
+@ComponentScan(basePackages = "com.experta.pap")
 public class ServletConfiguration {
 
 	@Bean
