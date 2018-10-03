@@ -2,27 +2,32 @@ package com.experta.pap.model;
 
 public class FileInfo {
 
-	private String fileName;
-	private long fileSize;
+	private String _fileName;
+	private long _fileSize;
 
 	public FileInfo() {
 
 	}
 
-	public String getFileName() {
-		return fileName;
+	public String get_fileName() {
+		return _fileName;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void set_fileName(String _fileName) {
+		this._fileName = _fileName;
 	}
 
-	public long getFileSize() {
-		return fileSize;
+	public long get_fileSize() {
+		return _fileSize;
 	}
 
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
+	public void set_fileSize(long _fileSize) {
+		this._fileSize = _fileSize;
+	}
+
+	@Override
+	public String toString() {
+		return "FileInfo [_fileName=" + _fileName + ", _fileSize=" + _fileSize + "]";
 	}
 
 }

@@ -10,7 +10,7 @@ import com.experta.pap.service.ISiniestroService;
 @Service
 public class SiniestroServiceImpl implements ISiniestroService {
 
-	public List<Siniestro> processSiniestros(List<Siniestro> siniestros) {
+	public List<Siniestro> predictSiniestros(List<Siniestro> siniestros) {
 		// TODO Auto-generated method stub
 		return null;
 	}

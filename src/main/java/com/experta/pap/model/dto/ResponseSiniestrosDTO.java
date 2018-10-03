@@ -6,13 +6,13 @@ import com.experta.pap.model.Siniestro;
 
 public class ResponseSiniestrosDTO {
 
-	List<Siniestro> siniestros;
-	String errorMessage;
+	List<Siniestro> _siniestros;
+	String _errorMessage;
+	
+	public List<Siniestro> get_siniestros() {	return _siniestros;	}
+	public String get_errorMessage() {	return _errorMessage;	}
 
-	public List<Siniestro> getSiniestros() {	return siniestros;	}
-	public String getErrorMessage() {	return errorMessage;	}
-
-	public void setSiniestros(List<Siniestro> siniestros) {	this.siniestros = siniestros;	}
-	public void setErrorMessage(String errorMessage) {	this.errorMessage = errorMessage;	}
+	public void set_siniestros(List<Siniestro> _siniestros) {	this._siniestros = _siniestros;	}
+	public void set_errorMessage(String _errorMessage) {	this._errorMessage = _errorMessage;	}
 	
 }

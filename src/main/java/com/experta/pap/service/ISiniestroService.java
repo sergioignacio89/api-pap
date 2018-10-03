@@ -6,5 +6,5 @@ import com.experta.pap.model.Siniestro;
 
 public interface ISiniestroService {
 
-	public List<Siniestro> processSiniestros(List<Siniestro> siniestros);
+	public List<Siniestro> predictSiniestros(List<Siniestro> siniestros);
 }
