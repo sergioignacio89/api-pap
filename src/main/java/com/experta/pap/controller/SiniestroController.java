@@ -96,6 +96,7 @@ public class SiniestroController {
 
 			List<Siniestro> siniestros = fileService.readFile(fileInfo.get_fileName());
 			siniestroService.predictSiniestros(siniestros);
+			responseSiniestrosDTO.set_siniestros(siniestros);
 			response = new ResponseEntity<>(responseSiniestrosDTO, HttpStatus.OK);
 			return response;
 
