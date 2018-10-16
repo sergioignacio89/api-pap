@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.experta.pap.model.FileInfo;
 import com.experta.pap.model.Siniestro;
+import com.experta.pap.model.SiniestroInferido;
 import com.experta.pap.model.dto.ResponseSiniestrosDTO;
 import com.experta.pap.service.IFileService;
 import com.experta.pap.service.ISiniestroService;
@@ -95,8 +96,9 @@ public class SiniestroController {
 		try {
 
 			List<Siniestro> siniestros = fileService.readFile(fileInfo.get_fileName());
-			siniestroService.predictSiniestros(siniestros);
-			responseSiniestrosDTO.set_siniestros(siniestros);
+			List<SiniestroInferido> siniestroInferred = siniestroService.predictSiniestros(siniestros);
+
+			responseSiniestrosDTO.set_siniestros(siniestroInferred);
 			response = new ResponseEntity<>(responseSiniestrosDTO, HttpStatus.OK);
 			return response;
 

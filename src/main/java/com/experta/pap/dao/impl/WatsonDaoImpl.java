@@ -6,9 +6,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 import java.util.Properties;
 
 import org.springframework.stereotype.Repository;
@@ -21,9 +19,9 @@ import com.experta.pap.utils.Resources;
 @Repository
 public class WatsonDaoImpl implements IWatsonDao {
 
-	public List<String> predictSiniestros(String jsonSiniestros) throws GenericException, ConnectionException {
+	public String predictSiniestros(String values) throws GenericException, ConnectionException {
 
-		List<String> response = new ArrayList<>();
+		StringBuffer jsonStringScoring = new StringBuffer();
 		HttpURLConnection tokenConnection = null;
 		HttpURLConnection scoringConnection = null;
 		BufferedReader tokenBuffer = null;
@@ -62,7 +60,7 @@ public class WatsonDaoImpl implements IWatsonDao {
 			}
 
 			URL scoringUrl = new URL(
-					"https://us-south.ml.cloud.ibm.com/v3/wml_instances/0c13a883-b652-4c52-ba24-238cf02679cb/deployments/1e26f7f5-cec4-4d08-886e-3275902b786b/online");
+					"https://us-south.ml.cloud.ibm.com/v3/wml_instances/aaa7b437-b556-49a2-bd11-d6e71acfb1fa/deployments/11e208c7-c132-42dc-8940-018627f1fad2/online");
 			String wmlToken = "Bearer " + jsonString.toString().replace("\"", "").replace("}", "").split(":")[1];
 
 			scoringConnection = (HttpURLConnection) scoringUrl.openConnection();
@@ -74,11 +72,13 @@ public class WatsonDaoImpl implements IWatsonDao {
 			scoringConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
 			OutputStreamWriter writer = new OutputStreamWriter(scoringConnection.getOutputStream(), "UTF-8");
-			writer.write(jsonSiniestros);
+			String payload = "{\"fields\": [\"Siniestro:Severidad\", \"Siniestro:Causa\", \"Siniestro:ParteCuerpo\", \"DESC_ULTIMO_DX\", \"Siniestro:Circunstancia\", \"Siniestro:FKT?\", \"Siniestro:AltaMedica?\", \"Siniestro:Diagnostivo?\", \"Siniestro:Cirugia?\", \"Siniestro:Estudios?\", \"Siniestro:Periodo\", \"Siniestrop:PrestadorProvincia\", \"Siniesto:CanalIngreso\", \"Siniestro:CaseSML\", \"Siniestro:CAseSupervisor\", \"Siniestro:Prestador\", \"Empresa:CP\", \"Empresa:Provincia\", \"Juicio:Abogado\", \"Juicio:Estudio\", \"Juicio:LeyInvocada\", \"ABOGADO_CP\", \"ESTUDIO_CP\", \"SINIESTADO_NACIONALIDAD\", \"SINIESTRADO_CP\", \"SINIESTRADO_SEXO\", \"SINIESTRADO_Fh_NACIMIENTO\", \"POLIZA_Tipo_Poliza\", \"LOCALIDAD_POLIZA\"], \"values\": [{replace}]}";
+			String valuesTmp = payload.replace("[{replace}]", values);
+			
+			writer.write(valuesTmp);
 			writer.close();
 
 			scoringBuffer = new BufferedReader(new InputStreamReader(scoringConnection.getInputStream()));
-			StringBuffer jsonStringScoring = new StringBuffer();
 			String lineScoring;
 
 			while ((lineScoring = scoringBuffer.readLine()) != null) {
@@ -105,6 +105,6 @@ public class WatsonDaoImpl implements IWatsonDao {
 			} catch (Exception e) {
 			}
 		}
-		return response;
+		return jsonStringScoring.toString();
 	}
 }
