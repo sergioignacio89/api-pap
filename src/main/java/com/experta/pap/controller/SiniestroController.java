@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,7 @@ public class SiniestroController {
 	@Autowired
 	private IFileService fileService;
 
+	@CrossOrigin
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<FileInfo> uploadSiniestrosFile(@RequestParam("file") MultipartFile file,
 			HttpSession session) {
@@ -62,6 +64,7 @@ public class SiniestroController {
 		return response;
 	}
 
+	@CrossOrigin()
 	@RequestMapping(value = "/predict", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseSiniestrosDTO> predictSiniestros(HttpServletRequest request) {
 
