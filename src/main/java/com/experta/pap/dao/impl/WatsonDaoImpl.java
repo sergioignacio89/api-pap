@@ -27,12 +27,14 @@ public class WatsonDaoImpl implements IWatsonDao {
 		BufferedReader tokenBuffer = null;
 		BufferedReader scoringBuffer = null;
 
+		String scoringEndpoint = "";
 		String urlCred = "";
 		String usernameCred = "";
 		String passwordCred = "";
 		try {
 			try {
 				Properties props = Resources.getProperties();
+				scoringEndpoint = String.valueOf(props.get("pap.wmlservice.credentials.scoringEndpoint"));
 				urlCred = String.valueOf(props.get("pap.wmlservice.credentials.url"));
 				usernameCred = String.valueOf(props.getProperty("pap.wmlservice.credentials.username"));
 				passwordCred = String.valueOf(props.getProperty("pap.wmlservice.credentials.password"));
@@ -59,8 +61,7 @@ public class WatsonDaoImpl implements IWatsonDao {
 				jsonString.append(line);
 			}
 
-			URL scoringUrl = new URL(
-					"https://us-south.ml.cloud.ibm.com/v3/wml_instances/aaa7b437-b556-49a2-bd11-d6e71acfb1fa/deployments/11e208c7-c132-42dc-8940-018627f1fad2/online");
+			URL scoringUrl = new URL(scoringEndpoint);
 			String wmlToken = "Bearer " + jsonString.toString().replace("\"", "").replace("}", "").split(":")[1];
 
 			scoringConnection = (HttpURLConnection) scoringUrl.openConnection();
@@ -72,7 +73,7 @@ public class WatsonDaoImpl implements IWatsonDao {
 			scoringConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
 			OutputStreamWriter writer = new OutputStreamWriter(scoringConnection.getOutputStream(), "UTF-8");
-			String payload = "{\"fields\": [\"Siniestro:Severidad\", \"Siniestro:Causa\", \"Siniestro:ParteCuerpo\", \"DESC_ULTIMO_DX\", \"Siniestro:Circunstancia\", \"Siniestro:FKT?\", \"Siniestro:AltaMedica?\", \"Siniestro:Diagnostivo?\", \"Siniestro:Cirugia?\", \"Siniestro:Estudios?\", \"Siniestro:Periodo\", \"Siniestrop:PrestadorProvincia\", \"Siniesto:CanalIngreso\", \"Siniestro:CaseSML\", \"Siniestro:CAseSupervisor\", \"Siniestro:Prestador\", \"Empresa:CP\", \"Empresa:Provincia\", \"Juicio:Abogado\", \"Juicio:Estudio\", \"Juicio:LeyInvocada\", \"ABOGADO_CP\", \"ESTUDIO_CP\", \"SINIESTADO_NACIONALIDAD\", \"SINIESTRADO_CP\", \"SINIESTRADO_SEXO\", \"SINIESTRADO_Fh_NACIMIENTO\", \"POLIZA_Tipo_Poliza\", \"LOCALIDAD_POLIZA\"], \"values\": [{replace}]}";
+			String payload = "{\"fields\": [\"Siniestro:Severidad\", \"Siniestro:Causa\", \"Siniestro:ParteCuerpo\", \"DESC_ULTIMO_DX\", \"Siniestro:Circunstancia\", \"Siniestro:FKT?\", \"Siniestro:AltaMedica?\", \"Siniestro:Diagnostivo?\", \"Siniestro:Cirugia?\", \"Siniestro:Estudios?\", \"Siniestro:Periodo\", \"Siniestrop:PrestadorProvincia\", \"Siniesto:CanalIngreso\", \"Siniestro:CaseSML\", \"Siniestro:CAseSupervisor\", \"Siniestro:Prestador\", \"Empresa:CP\", \"Empresa:Provincia\", \"SINIESTADO_NACIONALIDAD\", \"SINIESTRADO_CP\", \"SINIESTRADO_SEXO\", \"SINIESTRADO_Fh_NACIMIENTO\", \"POLIZA_Tipo_Poliza\", \"LOCALIDAD_POLIZA\"], \"values\": [{replace}]}";
 			String valuesTmp = payload.replace("[{replace}]", values);
 			
 			writer.write(valuesTmp);

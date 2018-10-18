@@ -20,12 +20,6 @@ public class Siniestro {
 	private String siniestroPrestador;
 	private String empresaCP;
 	private String empresaProvincia;
-	private String juicioAbogado;
-	private String juicioEstudio;
-	private String juicioTiene;
-	private String juicioLeyInvocada;
-	private String abogadoCP;
-	private String estudioCP;
 	private String siniestradoNacionalidad;
 	private String siniestradoCP;
 	private String siniestradoSexo;
@@ -58,18 +52,12 @@ public class Siniestro {
 		siniestroPrestador = values[15];
 		empresaCP = values[16];
 		empresaProvincia = values[17];
-		juicioAbogado = values[18];
-		juicioEstudio = values[19];
-		juicioTiene = values[20];
-		juicioLeyInvocada = values[21];
-		abogadoCP = values[22];
-		estudioCP = values[23];
-		siniestradoNacionalidad = values[24];
-		siniestradoCP = values[25];
-		siniestradoSexo = values[26];
-		siniestradoFhNacimiento = values[27];
-		tipoPoliza = values[28];
-		localidadPoliza = values[29];
+		siniestradoNacionalidad = values[18];
+		siniestradoCP = values[19];
+		siniestradoSexo = values[20];
+		siniestradoFhNacimiento = values[21];
+		tipoPoliza = values[22];
+		localidadPoliza = values[23];
 		
 	}
 
@@ -217,54 +205,6 @@ public class Siniestro {
 		this.empresaProvincia = empresaProvincia;
 	}
 
-	public String getJuicioAbogado() {
-		return juicioAbogado;
-	}
-
-	public void setJuicioAbogado(String juicioAbogado) {
-		this.juicioAbogado = juicioAbogado;
-	}
-
-	public String getJuicioEstudio() {
-		return juicioEstudio;
-	}
-
-	public void setJuicioEstudio(String juicioEstudio) {
-		this.juicioEstudio = juicioEstudio;
-	}
-
-	public String getJuicioTiene() {
-		return juicioTiene;
-	}
-
-	public void setJuicioTiene(String juicioTiene) {
-		this.juicioTiene = juicioTiene;
-	}
-
-	public String getJuicioLeyInvocada() {
-		return juicioLeyInvocada;
-	}
-
-	public void setJuicioLeyInvocada(String juicioLeyInvocada) {
-		this.juicioLeyInvocada = juicioLeyInvocada;
-	}
-
-	public String getAbogadoCP() {
-		return abogadoCP;
-	}
-
-	public void setAbogadoCP(String abogadoCP) {
-		this.abogadoCP = abogadoCP;
-	}
-
-	public String getEstudioCP() {
-		return estudioCP;
-	}
-
-	public void setEstudioCP(String estudioCP) {
-		this.estudioCP = estudioCP;
-	}
-
 	public String getSiniestradoNacionalidad() {
 		return siniestradoNacionalidad;
 	}
@@ -324,12 +264,10 @@ public class Siniestro {
 				+ siniestroPrestadorProvincia + ", siniestroCanalIngreso=" + siniestroCanalIngreso
 				+ ", siniestroCaseSML=" + siniestroCaseSML + ", siniestroCaseSupervisor=" + siniestroCaseSupervisor
 				+ ", siniestroPrestador=" + siniestroPrestador + ", empresaCP=" + empresaCP + ", empresaProvincia="
-				+ empresaProvincia + ", juicioAbogado=" + juicioAbogado + ", juicioEstudio=" + juicioEstudio
-				+ ", juicioTiene=" + juicioTiene + ", juicioLeyInvocada=" + juicioLeyInvocada + ", abogadoCP="
-				+ abogadoCP + ", estudioCP=" + estudioCP + ", siniestradoNacionalidad=" + siniestradoNacionalidad
-				+ ", siniestradoCP=" + siniestradoCP + ", siniestradoSexo=" + siniestradoSexo
-				+ ", siniestradoFhNacimiento=" + siniestradoFhNacimiento + ", tipoPoliza=" + tipoPoliza
-				+ ", localidadPoliza=" + localidadPoliza + "]";
+				+ empresaProvincia + ", siniestradoNacionalidad=" + siniestradoNacionalidad + ", siniestradoCP="
+				+ siniestradoCP + ", siniestradoSexo=" + siniestradoSexo + ", siniestradoFhNacimiento="
+				+ siniestradoFhNacimiento + ", tipoPoliza=" + tipoPoliza + ", localidadPoliza=" + localidadPoliza + "]";
 	}
+
 	
 }

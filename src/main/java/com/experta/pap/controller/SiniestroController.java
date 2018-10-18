@@ -68,7 +68,6 @@ public class SiniestroController {
 	@RequestMapping(value = "/predict", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseSiniestrosDTO> predictSiniestros(HttpServletRequest request) {
 
-		// TODO
 		ResponseEntity<ResponseSiniestrosDTO> response;
 		ResponseSiniestrosDTO responseSiniestrosDTO = new ResponseSiniestrosDTO();
 
