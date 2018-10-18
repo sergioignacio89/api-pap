@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.experta.pap.dao.IWatsonDao;
 import com.experta.pap.exceptions.ConnectionException;
 import com.experta.pap.exceptions.GenericException;
-import com.experta.pap.model.Predictions;
 import com.experta.pap.model.Siniestro;
 import com.experta.pap.model.SiniestroInferido;
 import com.experta.pap.service.ISiniestroService;
@@ -34,7 +33,7 @@ public class SiniestroServiceImpl implements ISiniestroService {
 			
 			String jsonStringScoring = watsonDao.predictSiniestros(SiniestroUtil.purifySiniestro(data.toString()));
 			
-			List<Predictions> inferredPercentage = JsonMapper.getInferredPercentage(jsonStringScoring);
+			List<String> inferredPercentage = JsonMapper.getInferredPercentage(jsonStringScoring);
 			siniestroInferred = JsonMapper.convertJsonToSiniestroInferred(siniestros, inferredPercentage);
 			
 		} catch (ConnectionException e) {

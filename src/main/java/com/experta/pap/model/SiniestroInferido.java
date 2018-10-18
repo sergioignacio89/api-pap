@@ -3,11 +3,11 @@ package com.experta.pap.model;
 public class SiniestroInferido {
 
 	private Siniestro siniestro;
-	private Predictions predictions;
+	private String inferredValue;
 	
-	public SiniestroInferido(Siniestro siniestro, Predictions predictions) {
+	public SiniestroInferido(Siniestro siniestro, String inferredValue) {
 		this.siniestro = siniestro;
-		this.predictions = predictions;
+		this.inferredValue = inferredValue;
 	}
 
 	public Siniestro getSiniestro() {
@@ -18,17 +18,17 @@ public class SiniestroInferido {
 		this.siniestro = siniestro;
 	}
 
-	public Predictions getPredictions() {
-		return predictions;
+	public String getInferredValue() {
+		return inferredValue;
 	}
 
-	public void setPredictions(Predictions predictions) {
-		this.predictions = predictions;
+	public void setInferredValue(String inferredValue) {
+		this.inferredValue = inferredValue;
 	}
 
 	@Override
 	public String toString() {
-		return "SiniestroInferido [siniestro=" + siniestro + ", predictions=" + predictions + "]";
+		return "SiniestroInferido [siniestro=" + siniestro + ", inferredValue=" + inferredValue + "]";
 	}
-
+	
 }

@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.experta.pap.exceptions.GenericException;
-import com.experta.pap.model.Predictions;
 import com.experta.pap.model.Siniestro;
 import com.experta.pap.model.SiniestroInferido;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -31,9 +30,9 @@ public class JsonMapper {
 		return json;
 	}
 
-	public static List<Predictions> getInferredPercentage(String jsonStringScoring) throws Exception {
+	public static List<String> getInferredPercentage(String jsonStringScoring) throws Exception {
 
-		List<Predictions> inferredPercentage = new ArrayList<>();
+		List<String> inferredPercentage = new ArrayList<>();
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -46,32 +45,34 @@ public class JsonMapper {
 			JsonNode node = iterator.next();
 
 			JsonNode index0 = node.get(26);
-			double percentageForNonJudgment = index0.get(0).asDouble() * 100;
+//			double percentageForNonJudgment = index0.get(0).asDouble() * 100;
 			double percentageForJudgment = index0.get(1).asDouble() * 100;
 			
-			percentageForNonJudgment = SiniestroUtil.parsePredictionValue(percentageForNonJudgment);
+//			percentageForNonJudgment = SiniestroUtil.parsePredictionValue(percentageForNonJudgment);
 			percentageForJudgment = SiniestroUtil.parsePredictionValue(percentageForJudgment);
 			
-			Predictions predictions = new Predictions(String.valueOf(percentageForNonJudgment), String.valueOf(percentageForJudgment));
-			inferredPercentage.add(predictions);
+//			Predictions predictions = new Predictions(String.valueOf(percentageForNonJudgment), String.valueOf(percentageForJudgment));
+//			inferredPercentage.add(predictions);
+			String strPercentageForJudgment = String.valueOf(percentageForJudgment);
+			inferredPercentage.add(strPercentageForJudgment);
 		}
 		
 		return inferredPercentage;
 	}
 
 	public static List<SiniestroInferido> convertJsonToSiniestroInferred(List<Siniestro> siniestros,
-			List<Predictions> inferredPercentage) throws GenericException, Exception {
+			List<String> inferredPercentage) throws GenericException, Exception {
 
 		List<SiniestroInferido> siniestrosInferidos = new ArrayList<>();
 
 		try {
 			Iterator<Siniestro> itSiniestros = siniestros.iterator();
-			Iterator<Predictions> itInferredPerc = inferredPercentage.iterator();
+			Iterator<String> itInferredPerc = inferredPercentage.iterator();
 
 			while (itSiniestros.hasNext() && itInferredPerc.hasNext()) {
 
 				Siniestro siniestro = itSiniestros.next();
-				Predictions predictions = itInferredPerc.next();
+				String predictions = itInferredPerc.next();
 
 				SiniestroInferido siniestroInferido = new SiniestroInferido(siniestro, predictions);
 				siniestrosInferidos.add(siniestroInferido);
