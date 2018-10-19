@@ -5,6 +5,6 @@ import com.experta.pap.exceptions.GenericException;
 
 public interface IWatsonDao {
 
-	public String predictSiniestros(String data) throws GenericException, ConnectionException;
+	public String predictAccidents(String data) throws GenericException, ConnectionException;
 	
 }

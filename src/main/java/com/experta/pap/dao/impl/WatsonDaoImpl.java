@@ -19,7 +19,7 @@ import com.experta.pap.utils.Resources;
 @Repository
 public class WatsonDaoImpl implements IWatsonDao {
 
-	public String predictSiniestros(String values) throws GenericException, ConnectionException {
+	public String predictAccidents(String values) throws GenericException, ConnectionException {
 
 		StringBuffer jsonStringScoring = new StringBuffer();
 		HttpURLConnection tokenConnection = null;

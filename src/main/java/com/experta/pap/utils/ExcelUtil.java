@@ -14,7 +14,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.experta.pap.model.Siniestro;
+import com.experta.pap.model.Accident;
 
 public class ExcelUtil {
 
@@ -25,9 +25,9 @@ public class ExcelUtil {
 
 	}
 
-	public List<Siniestro> fromExcelToSiniestros(FileInputStream excelFile) {
+	public List<Accident> fromExcelToAccidents(FileInputStream excelFile) {
 
-		List<Siniestro> siniestros = new ArrayList<Siniestro>();
+		List<Accident> accidents = new ArrayList<Accident>();
 		Workbook workbook = null;
 		try {
 			workbook = new XSSFWorkbook(excelFile);
@@ -105,8 +105,8 @@ public class ExcelUtil {
 //						rowValue.append(cellValue).append(";");
 //					}
 					
-					Siniestro siniestro = new Siniestro(rowValue.toString());
-					siniestros.add(siniestro);
+					Accident accident = new Accident(rowValue.toString());
+					accidents.add(accident);
 				}
 				i++;
 			}
@@ -123,7 +123,7 @@ public class ExcelUtil {
 			}
 		}
 
-		return siniestros;
+		return accidents;
 	}
 
 }

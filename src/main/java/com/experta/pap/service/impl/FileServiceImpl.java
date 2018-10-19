@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.experta.pap.exceptions.BusinessException;
 import com.experta.pap.model.FileInfo;
-import com.experta.pap.model.Siniestro;
+import com.experta.pap.model.Accident;
 import com.experta.pap.service.IFileService;
 import com.experta.pap.utils.ExcelUtil;
 import com.experta.pap.utils.Resources;
@@ -47,9 +47,9 @@ public class FileServiceImpl implements IFileService {
 	}
 
 	@Override
-	public List<Siniestro> readFile(String name) throws BusinessException {
+	public List<Accident> readFile(String name) throws BusinessException {
 
-		List<Siniestro> siniestros;
+		List<Accident> accidents;
 		FileInputStream excelFile = null;
 		try {
 			Properties props = Resources.getProperties();
@@ -58,7 +58,7 @@ public class FileServiceImpl implements IFileService {
 			excelFile = new FileInputStream(file);
 
 			ExcelUtil excelUtil = new ExcelUtil(Boolean.valueOf(props.getProperty("pap.files.excel.header")));
-			siniestros = excelUtil.fromExcelToSiniestros(excelFile);
+			accidents = excelUtil.fromExcelToAccidents(excelFile);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,7 +74,7 @@ public class FileServiceImpl implements IFileService {
 			}
 		}
 
-		return siniestros;
+		return accidents;
 	}
 
 	public void createFile() {

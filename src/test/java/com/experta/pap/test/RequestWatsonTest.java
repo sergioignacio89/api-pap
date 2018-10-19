@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.experta.pap.model.Siniestro;
-import com.experta.pap.utils.SiniestroUtil;
+import com.experta.pap.model.Accident;
+import com.experta.pap.utils.AccidentUtil;
 
 public class RequestWatsonTest {
 
@@ -25,11 +25,11 @@ public class RequestWatsonTest {
 	public static void main(String[] args) throws Exception {
 
 		String siniestro = "Leve;Contacto Con Fuego;Pierna;Quemadura Cadera Y Minf 1er Grado Exc Tob/Pie Sup Hasta 10%;Realizando Tarea Habitual;NO;SI;1;NO;NO;201601;Capital Federal;DA;Lsalvatierra;Dgonza_sup;Cemic;1425;0;12;0;27;1/1/1901;RG;Capital Federal;";
-		Siniestro s = new Siniestro(siniestro);
+		Accident s = new Accident(siniestro);
 
 		List<List<String>> data = new ArrayList<>();
-		data.add(SiniestroUtil.retrieveData(s));
-		String values = SiniestroUtil.purifySiniestro(data.toString());
+		data.add(AccidentUtil.retrieveData(s));
+		String values = AccidentUtil.purifyAccident(data.toString());
 
 		doPrediction(values);
 

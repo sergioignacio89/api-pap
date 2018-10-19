@@ -5,27 +5,27 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.experta.pap.exceptions.GenericException;
-import com.experta.pap.model.Siniestro;
-import com.experta.pap.model.SiniestroInferido;
+import com.experta.pap.model.Accident;
+import com.experta.pap.model.AccidentInferred;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonMapper {
 
-	public static List<Siniestro> convertJsonToSiniestro(List<String> listDocuments) {
+	public static List<Accident> convertJsonToAccident(List<String> listDocuments) {
 
 		return null;
 	}
 
-	public static String convertSiniestroToJson(List<Siniestro> siniestros) throws GenericException {
+	public static String convertAccidentToJson(List<Accident> accidents) throws GenericException {
 
 		String json = "";
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			json = mapper.writeValueAsString(siniestros);
+			json = mapper.writeValueAsString(accidents);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new GenericException("error when converting siniestros to json");
+			throw new GenericException("error when converting accidents to json");
 		}
 		return json;
 	}
@@ -49,7 +49,7 @@ public class JsonMapper {
 			double percentageForJudgment = index0.get(1).asDouble() * 100;
 			
 //			percentageForNonJudgment = SiniestroUtil.parsePredictionValue(percentageForNonJudgment);
-			percentageForJudgment = SiniestroUtil.parsePredictionValue(percentageForJudgment);
+			percentageForJudgment = AccidentUtil.parsePredictionValue(percentageForJudgment);
 			
 //			Predictions predictions = new Predictions(String.valueOf(percentageForNonJudgment), String.valueOf(percentageForJudgment));
 //			inferredPercentage.add(predictions);
@@ -60,22 +60,22 @@ public class JsonMapper {
 		return inferredPercentage;
 	}
 
-	public static List<SiniestroInferido> convertJsonToSiniestroInferred(List<Siniestro> siniestros,
+	public static List<AccidentInferred> convertJsonToAccidentInferred(List<Accident> accidents,
 			List<String> inferredPercentage) throws GenericException, Exception {
 
-		List<SiniestroInferido> siniestrosInferidos = new ArrayList<>();
+		List<AccidentInferred> accidentsInferidos = new ArrayList<>();
 
 		try {
-			Iterator<Siniestro> itSiniestros = siniestros.iterator();
+			Iterator<Accident> itAccidents = accidents.iterator();
 			Iterator<String> itInferredPerc = inferredPercentage.iterator();
 
-			while (itSiniestros.hasNext() && itInferredPerc.hasNext()) {
+			while (itAccidents.hasNext() && itInferredPerc.hasNext()) {
 
-				Siniestro siniestro = itSiniestros.next();
+				Accident accident = itAccidents.next();
 				String predictions = itInferredPerc.next();
 
-				SiniestroInferido siniestroInferido = new SiniestroInferido(siniestro, predictions);
-				siniestrosInferidos.add(siniestroInferido);
+				AccidentInferred accidentInferido = new AccidentInferred(accident, predictions);
+				accidentsInferidos.add(accidentInferido);
 			}
 
 		} catch (Exception e) {
@@ -83,7 +83,7 @@ public class JsonMapper {
 			throw e;
 		}
 
-		return siniestrosInferidos;
+		return accidentsInferidos;
 	}
 
 }
