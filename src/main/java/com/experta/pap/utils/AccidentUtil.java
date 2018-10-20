@@ -3,7 +3,6 @@ package com.experta.pap.utils;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.Normalizer;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,25 +55,6 @@ public class AccidentUtil {
 		data.add("\"" + accident.getTipoPoliza() + "\"");
 		data.add("\"" + accident.getLocalidadPoliza() + "\"");
 
-		return data;
-	}
-	
-	public static String purifyAccident(String data) {
-		
-		data = stripAccents(data);
-		data = change—toN(data);
-		return data;
-	}
-	
-	private static String stripAccents(String data) 
-	{
-	    data = Normalizer.normalize(data, Normalizer.Form.NFD);
-	    data = data.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-	    return data;
-	}
-	
-	public static String change—toN(String data) {
-		data = data.replaceAll("Ò", "n");
 		return data;
 	}
 	

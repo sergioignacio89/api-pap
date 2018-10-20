@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.experta.pap.model.FileInfo;
+import com.experta.pap.exceptions.GenericException;
 import com.experta.pap.model.Accident;
 import com.experta.pap.model.AccidentInferred;
 import com.experta.pap.model.dto.ResponseInferredDTO;
@@ -44,8 +45,10 @@ public class AccidentController {
 		ResponseInferredDTO responseAccidentDTO = new ResponseInferredDTO();
 
 		if ((file == null) || (file.isEmpty())) {
-			LOGGER.log(Level.WARNING, "the excel file is empty");
-			response = new ResponseEntity<ResponseInferredDTO>(HttpStatus.BAD_REQUEST);
+			String errorMessage = "the excel file is empty";
+			LOGGER.log(Level.SEVERE, errorMessage);
+			responseAccidentDTO.set_errorMessage(errorMessage);
+			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.BAD_REQUEST);
 			return response;
 		}
 
@@ -53,6 +56,15 @@ public class AccidentController {
 			FileInfo fileInfo = fileService.saveFileToLocalTemp(file);
 
 			List<Accident> accidents = fileService.readFile(fileInfo.get_fileName());
+			
+			if(accidents.size() == 0) {
+				String errorMessage = "no accidents were found in the excel file";
+				LOGGER.severe(errorMessage);
+				responseAccidentDTO.set_errorMessage(errorMessage);
+				response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.BAD_REQUEST);
+				return response;
+			}
+			
 			List<AccidentInferred> accidentInferred = accidentService.predictAccidents(accidents);
 
 			responseAccidentDTO.set_accidents(accidentInferred);

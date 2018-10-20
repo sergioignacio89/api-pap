@@ -13,6 +13,7 @@ import com.experta.pap.model.Accident;
 import com.experta.pap.model.AccidentInferred;
 import com.experta.pap.service.IAccidentService;
 import com.experta.pap.utils.JsonMapper;
+import com.experta.pap.utils.StringUtil;
 import com.experta.pap.utils.AccidentUtil;
 
 @Service
@@ -31,7 +32,7 @@ public class AccidentServiceImpl implements IAccidentService {
 				data.add(AccidentUtil.retrieveData(s));
 			}
 			
-			String jsonStringScoring = watsonDao.predictAccidents(AccidentUtil.purifyAccident(data.toString()));
+			String jsonStringScoring = watsonDao.predictAccidents(StringUtil.purifyAccident(data.toString()));
 			
 			List<String> inferredPercentage = JsonMapper.getInferredPercentage(jsonStringScoring);
 			accidentsInferred = JsonMapper.convertJsonToAccidentInferred(accidents, inferredPercentage);
