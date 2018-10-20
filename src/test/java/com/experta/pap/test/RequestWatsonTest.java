@@ -15,6 +15,7 @@ import java.util.Map;
 
 import com.experta.pap.model.Accident;
 import com.experta.pap.utils.AccidentUtil;
+import com.experta.pap.utils.StringUtil;
 
 public class RequestWatsonTest {
 
@@ -29,7 +30,7 @@ public class RequestWatsonTest {
 
 		List<List<String>> data = new ArrayList<>();
 		data.add(AccidentUtil.retrieveData(s));
-		String values = AccidentUtil.purifyAccident(data.toString());
+		String values = StringUtil.purifyAccident(data.toString());
 
 		doPrediction(values);
 
