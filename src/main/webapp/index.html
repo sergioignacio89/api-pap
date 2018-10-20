@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Data table -->
+    <link href="css/addons/datatables.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!--Main Navigation-->
+    <header>
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light scrolling-navbar">
+            <div class="container">
+
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect" href="#">
+                    <strong class="verde-experta-2-text">PAP</strong>
+                </a>
+
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main class="mt-5 pt-5">
+        <div class="container">
+            <section class="text-center">
+
+                <div class="row mb-12 wow fadeIn">
+                    <div class="input-group mb-3">
+                      <!--
+                        <div class="input-group-prepend">
+                          <span class="input-group-text btn-dark-green" id="inputFileCSV">Cargar</span>
+                        </div>
+                      -->
+                        
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputFileCSV">
+                          <label class="custom-file-label" for="inputFileCSV">Seleccione un archivo</label>
+                        </div>
+                      </div>
+                </div>
+
+                <div class="row mb-12 wow fadeIn">
+                    <button type="button" id="btnPredecir" class="btn btn-lg azul-experta col-lg-11 fa fa-upload fa-3x" onclick="fileValidation()"> Predecir</button>
+                </div>
+
+                <div id="loader"></div>
+
+                <div class="row mb-12 wow fadeIn" id="rowGrid">         
+                  
+                    <table id="dtBasic" class="table table-hover table-lg" cellspacing="0" width="100%">
+
+                        <thead class="azul-experta-2 white-text">
+                          <tr>
+                            <th scope="col">SEVERIDAD 
+                            </th>
+                            <th scope="col">CAUSA 
+                            </th>
+                            <th scope="col">PARTE DEL CUERPO 
+                            </th>
+                            <th scope="col">% JUICIO 
+                            </th>
+                          </tr>
+                        </thead>
+                    </table>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- Central Modal Small -->
+        <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div id="modalStyle" class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                <h4 class="modal-title w-100" id="myModalLabel"><span id="titleModal"></span></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <span id="bodyModal"></span> 
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Central Modal Small -->
+
+    </main>
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer class="page-footer text-center font-small gris-experta mt-4 wow fadeIn">
+
+        <!--Call to action-->
+        <div class="pt-4">
+          FOOTER TEXT
+        </div>
+        <!--/.Call to action-->
+
+
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            © 2018 Copyright
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/addons/datatables.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- SITE -->
+    <script type="text/javascript" src="js/site.min.js"></script>
+    <!-- CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+</body>
+
+</html>
