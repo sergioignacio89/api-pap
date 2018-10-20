@@ -54,7 +54,6 @@ public class StringUtil {
 
 		strDate = strDate.trim();
 		if (strDate.equals("-") || strDate.equals("")) {
-			System.out.println("no es una fecha");
 			strDate = DefaultValuesEnum.date.getValue();
 		} else {
 
@@ -62,15 +61,12 @@ public class StringUtil {
 
 			for (DateFormatEnum format : DateFormatEnum.values()) {
 
-				System.out.println("INFO: trying to format date:" + format.getFormat());
-
 				SimpleDateFormat parseFrom = new SimpleDateFormat(format.getFormat());
 				SimpleDateFormat parseTo = new SimpleDateFormat(DateFormatEnum.yyyy_MM_dd.getFormat());
 
 				try {
 					Date date = parseFrom.parse(strDate);
 					strDate = parseTo.format(date);
-					System.out.println("INFO: " + format.getFormat() + " - " + strDate);
 					b = true;
 					break;
 				} catch (ParseException e) {
