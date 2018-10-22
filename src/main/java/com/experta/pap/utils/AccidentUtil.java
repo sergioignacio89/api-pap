@@ -32,11 +32,13 @@ public class AccidentUtil {
 		data.add("\"" + accident.getSiniestradoDescUltimoDX() + "\"");
 		data.add("\"" + accident.getSiniestroCircunstancia() + "\"");
 		
-		data.add("\"" + accident.getSiniestroFKT() + "\"");
-		data.add("\"" + accident.getSiniestroAltaMedica() + "\"");
+		data.add(accident.getSiniestroFKT());
+		data.add(accident.getSiniestroAltaMedica());
+//		data.add("\"" + accident.getSiniestroFKT() + "\"");
+//		data.add("\"" + accident.getSiniestroAltaMedica() + "\"");
 		data.add(String.valueOf(accident.getSiniestroDiagnostico()));
-		data.add("\"" + accident.getSiniestroCirugia() + "\"");
-		data.add("\"" + accident.getSiniestroEstudios() + "\"");
+		data.add(accident.getSiniestroCirugia());
+		data.add(accident.getSiniestroEstudios());
 		
 		data.add(String.valueOf(accident.getSiniestroPeriodo()));
 		data.add("\"" + accident.getSiniestroPrestadorProvincia() + "\"");

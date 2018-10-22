@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.experta.pap.enumerators.DefaultValuesEnum;
 import com.experta.pap.model.Accident;
 
 public class ExcelUtil {
@@ -45,21 +46,38 @@ public class ExcelUtil {
 						Cell cell = row.getCell(i1);
 
 						switch (i1) {
+						case 5:
+						case 6:
 						case 7:
+						case 8:
+						case 9:
 						case 10:
 						case 16:
 						case 17:
 						case 18:
 						case 19:
 						case 20:
-							String cellTmp = cell.toString();
-							cellValue = (StringUtil.purifyInteger(cellTmp));
+							if (cell == null) {
+								cellValue = DefaultValuesEnum.number.getValue();
+							} else {
+								String cellTmp = cell.toString();
+								cellValue = (StringUtil.purifyInteger(cellTmp));
+							}
 							break;
 						case 21:
-							cellValue = StringUtil.parseToDate(cell.toString());
+							if (cell == null) {
+								cellValue = DefaultValuesEnum.date.getValue();
+							} else {
+								cellValue = StringUtil.parseToDate(cell.toString());
+							}
 							break;
 						default:
-							cellValue = cell.getRichStringCellValue().getString().trim();
+							if (cell == null) {
+								cellValue = DefaultValuesEnum.string.getValue();
+							} else {
+								String str = cell.toString();
+								cellValue = cell.getRichStringCellValue().getString().trim();
+							}
 						}
 						rowValue.append(cellValue).append(";");
 					}
