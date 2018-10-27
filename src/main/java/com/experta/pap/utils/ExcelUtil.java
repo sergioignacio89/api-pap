@@ -45,30 +45,31 @@ public class ExcelUtil {
 
 					StringBuilder rowValue = new StringBuilder();
 
-					for (int i1 = 0; i1 < 24; i1++) {
+					for (int i1 = 0; i1 < 25; i1++) {
 						String cellValue;
 						Cell cell = row.getCell(i1);
 
 						switch (i1) {
-						case 5:
+						case 0:
 						case 6:
 						case 7:
 						case 8:
 						case 9:
 						case 10:
-						case 16:
+						case 11:
 						case 17:
 						case 18:
 						case 19:
 						case 20:
+						case 21:
 							if (cell == null) {
 								cellValue = DefaultValuesEnum.number.getValue();
 							} else {
 								String cellTmp = cell.toString();
-								cellValue = (StringUtil.purifyInteger(cellTmp));
+								cellValue = StringUtil.convertToInteger(cellTmp);
 							}
 							break;
-						case 21:
+						case 22:
 							if (cell == null) {
 								cellValue = DefaultValuesEnum.date.getValue();
 							} else {

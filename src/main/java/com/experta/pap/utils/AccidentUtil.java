@@ -36,22 +36,22 @@ public class AccidentUtil {
 		data.add(accident.getSiniestroAltaMedica());
 //		data.add("\"" + accident.getSiniestroFKT() + "\"");
 //		data.add("\"" + accident.getSiniestroAltaMedica() + "\"");
-		data.add(String.valueOf(accident.getSiniestroDiagnostico()));
+		data.add(accident.getSiniestroDiagnostico());
 		data.add(accident.getSiniestroCirugia());
 		data.add(accident.getSiniestroEstudios());
 		
-		data.add(String.valueOf(accident.getSiniestroPeriodo()));
+		data.add(accident.getSiniestroPeriodo());
 		data.add("\"" + accident.getSiniestroPrestadorProvincia() + "\"");
 		data.add("\"" + accident.getSiniestroCanalIngreso() + "\"");
 		data.add("\"" + accident.getSiniestroCaseSML() + "\"");
 		data.add("\"" + accident.getSiniestroCaseSupervisor() + "\"");
 		data.add("\"" + accident.getSiniestroPrestador() + "\"");
 		
-		data.add(String.valueOf(accident.getEmpresaCP()));
-		data.add(String.valueOf(accident.getEmpresaProvincia()));
-		data.add(String.valueOf(accident.getSiniestradoNacionalidad()));
-		data.add(String.valueOf(accident.getSiniestradoCP()));
-		data.add(String.valueOf(accident.getSiniestradoSexo()));
+		data.add(accident.getEmpresaCP());
+		data.add(accident.getEmpresaProvincia());
+		data.add(accident.getSiniestradoNacionalidad());
+		data.add(accident.getSiniestradoCP());
+		data.add(accident.getSiniestradoSexo());
 		
 		data.add("\"" + accident.getSiniestradoFhNacimiento() + "\"");
 		data.add("\"" + accident.getTipoPoliza() + "\"");

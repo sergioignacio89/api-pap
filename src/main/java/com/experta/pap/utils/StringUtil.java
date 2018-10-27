@@ -7,6 +7,7 @@ import java.util.Date;
 
 import com.experta.pap.enumerators.DateFormatEnum;
 import com.experta.pap.enumerators.DefaultValuesEnum;
+import com.experta.pap.exceptions.InputTypeException;
 
 public class StringUtil {
 
@@ -32,9 +33,9 @@ public class StringUtil {
 		data = data.replaceAll("\r\n", "");
 		return data;
 	}
-	public static boolean isInteger(String s) {
+	public static boolean isNumber(String s) {
 		try {
-			Integer.parseInt(s);
+			Float.parseFloat(s);
 		} catch (NumberFormatException e) {
 			return false;
 		} catch (NullPointerException e) {
@@ -43,14 +44,15 @@ public class StringUtil {
 		return true;
 	}
 
-	public static String purifyInteger(String number) {
+	public static String convertToInteger(String number) throws InputTypeException {
 
 		number = number.trim();
-		if (isInteger(number)) {
-			int i = Integer.parseInt(number);
+		
+		try {
+			int i = (int) Float.parseFloat(number);
 			number = String.valueOf(i);
-		} else {
-			number = DefaultValuesEnum.number.getValue();
+		} catch (Exception e) {
+			throw new InputTypeException("Error parsing number: " + number);
 		}
 		return number;
 	}
