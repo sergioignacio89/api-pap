@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.experta.pap.model.FileInfo;
-import com.experta.pap.exceptions.GenericException;
 import com.experta.pap.model.Accident;
 import com.experta.pap.model.AccidentInferred;
+import com.experta.pap.model.FileInfo;
 import com.experta.pap.model.dto.ResponseInferredDTO;
-import com.experta.pap.service.IFileService;
 import com.experta.pap.service.IAccidentService;
+import com.experta.pap.service.IFileService;
 
 @RestController
 @RequestMapping("/accidents")

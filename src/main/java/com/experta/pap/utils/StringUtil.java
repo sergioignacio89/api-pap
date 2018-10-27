@@ -13,6 +13,7 @@ public class StringUtil {
 	public static String purifyAccident(String data) {
 		data = stripAccents(data);
 		data = change—toN(data);
+		data = avoidLineBreak(data);
 		return data;
 	}
 
@@ -27,6 +28,10 @@ public class StringUtil {
 		return data;
 	}
 
+	public static String avoidLineBreak(String data) {
+		data = data.replaceAll("\r\n", "");
+		return data;
+	}
 	public static boolean isInteger(String s) {
 		try {
 			Integer.parseInt(s);
