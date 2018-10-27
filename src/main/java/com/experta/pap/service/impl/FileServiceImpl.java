@@ -61,8 +61,9 @@ public class FileServiceImpl implements IFileService {
 			accidents = excelUtil.fromExcelToAccidents(excelFile);
 
 		} catch (Exception e) {
+			LOGGER.severe("Error");
 			e.printStackTrace();
-			throw new BusinessException("error when processing the excel file download");
+			throw new BusinessException("error when processing the excel file");
 
 		} finally {
 			try {

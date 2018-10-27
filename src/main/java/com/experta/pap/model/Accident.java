@@ -1,5 +1,7 @@
 package com.experta.pap.model;
 
+import com.experta.pap.exceptions.ParseException;
+
 public class Accident {
 
 	private String siniestroSeveridad;
@@ -30,10 +32,14 @@ public class Accident {
 	public Accident() {
 	}
 	
-	public Accident(String data) {
+	public Accident(String data) throws ParseException {
 		
 		String[] values = data.split(";");
 		
+		if(values.length != 24) {
+			throw new ParseException("Incorrect number of fields");
+		}
+
 		siniestroSeveridad = values[0];
 		siniestroCausa = values[1];
 		siniestroParteCuerpo = values[2];
