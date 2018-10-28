@@ -45,7 +45,7 @@ public class ExcelUtil {
 
 					StringBuilder rowValue = new StringBuilder();
 
-					for (int i1 = 0; i1 < 25; i1++) {
+					for (int i1 = 0; i1 < 26; i1++) {
 						String cellValue;
 						Cell cell = row.getCell(i1);
 
@@ -74,6 +74,7 @@ public class ExcelUtil {
 						case 19:
 						case 20:
 						case 21:
+						case 22:
 							if (cell == null) {
 								cellValue = DefaultValuesEnum.number.getValue();
 							} else {
@@ -81,7 +82,7 @@ public class ExcelUtil {
 								cellValue = StringUtil.convertToInteger(cellTmp);
 							}
 							break;
-						case 22:
+						case 23:
 							if (cell == null) {
 								cellValue = DefaultValuesEnum.date.getValue();
 							} else {
