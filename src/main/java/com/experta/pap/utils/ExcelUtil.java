@@ -51,6 +51,18 @@ public class ExcelUtil {
 
 						switch (i1) {
 						case 0:
+							if (cell == null) {
+								cellValue = DefaultValuesEnum.string.getValue();
+							} else {
+								String cellTmp = cell.toString();
+								
+								if(StringUtil.isNumber(cellTmp)) {
+									cellValue = StringUtil.convertToInteger(cellTmp);
+								}else {
+									cellValue = cellTmp;
+								}
+							}
+							break;
 						case 6:
 						case 7:
 						case 8:
