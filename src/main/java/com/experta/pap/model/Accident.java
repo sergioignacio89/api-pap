@@ -23,6 +23,7 @@ public class Accident {
 	private String siniestroPrestador;
 	private String empresaCP;
 	private String empresaProvincia;
+	private String juicioTiene;
 	private String siniestradoNacionalidad;
 	private String siniestradoCP;
 	private String siniestradoSexo;
@@ -37,7 +38,7 @@ public class Accident {
 
 		String[] values = data.split(";");
 
-		if (values.length != 25) {
+		if (values.length != 26) {
 			throw new ParseException("Incorrect number of fields");
 		}
 		
@@ -60,12 +61,13 @@ public class Accident {
 		siniestroPrestador = values[16];
 		empresaCP = values[17];
 		empresaProvincia = values[18];
-		siniestradoNacionalidad = values[19];
-		siniestradoCP = values[20];
-		siniestradoSexo = values[21];
-		siniestradoFhNacimiento = values[22];
-		tipoPoliza = values[23];
-		localidadPoliza = values[24];
+		juicioTiene = values[19];
+		siniestradoNacionalidad = values[20];
+		siniestradoCP = values[21];
+		siniestradoSexo = values[22];
+		siniestradoFhNacimiento = values[23];
+		tipoPoliza = values[24];
+		localidadPoliza = values[25];
 
 	}
 
@@ -221,6 +223,14 @@ public class Accident {
 		this.empresaProvincia = empresaProvincia;
 	}
 
+	public String getJuicioTiene() {
+		return juicioTiene;
+	}
+
+	public void setJuicioTiene(String juicioTiene) {
+		this.juicioTiene = juicioTiene;
+	}
+
 	public String getSiniestradoNacionalidad() {
 		return siniestradoNacionalidad;
 	}
@@ -280,9 +290,10 @@ public class Accident {
 				+ siniestroPrestadorProvincia + ", siniestroCanalIngreso=" + siniestroCanalIngreso
 				+ ", siniestroCaseSML=" + siniestroCaseSML + ", siniestroCaseSupervisor=" + siniestroCaseSupervisor
 				+ ", siniestroPrestador=" + siniestroPrestador + ", empresaCP=" + empresaCP + ", empresaProvincia="
-				+ empresaProvincia + ", siniestradoNacionalidad=" + siniestradoNacionalidad + ", siniestradoCP="
-				+ siniestradoCP + ", siniestradoSexo=" + siniestradoSexo + ", siniestradoFhNacimiento="
-				+ siniestradoFhNacimiento + ", tipoPoliza=" + tipoPoliza + ", localidadPoliza=" + localidadPoliza + "]";
+				+ empresaProvincia + ", juicioTiene=" + juicioTiene + ", siniestradoNacionalidad="
+				+ siniestradoNacionalidad + ", siniestradoCP=" + siniestradoCP + ", siniestradoSexo=" + siniestradoSexo
+				+ ", siniestradoFhNacimiento=" + siniestradoFhNacimiento + ", tipoPoliza=" + tipoPoliza
+				+ ", localidadPoliza=" + localidadPoliza + "]";
 	}
 
 }
