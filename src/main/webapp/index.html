@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>PAP - Predictive & Analytic Project</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -29,9 +29,10 @@
 
                 <!-- Brand -->
                 <a class="navbar-brand waves-effect" href="#">
-                    <strong class="verde-experta-2-text">PAP</strong>
+                    <img src="img/logo-1.png" class="img-fluid">
                 </a>
-
+                <strong class="verde-experta-2-text">PAP</strong>
+                <h6 class="verde-experta-2-text">Predictive & Analytic Project</h6>
             </div>
         </nav>
         <!-- Navbar -->
@@ -40,27 +41,29 @@
     <!--Main Navigation-->
 
     <!--Main layout-->
-    <main class="mt-5 pt-5">
+    <main class="mt-1 pt-3">
         <div class="container">
-            <section class="text-center">
+            <section>
 
                 <div class="row mb-12 wow fadeIn">
-                    <div class="input-group mb-3">
+                    <div class="col-md-10 col-lg-10">
                       <!--
                         <div class="input-group-prepend">
                           <span class="input-group-text btn-dark-green" id="inputFileCSV">Cargar</span>
                         </div>
                       -->
-                        
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputFileCSV">
-                          <label class="custom-file-label" for="inputFileCSV">Seleccione un archivo</label>
+                          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputFileCSV" data-toggle="tooltip" data-placement="bottom">
+                          <label class="custom-file-label" for="inputFileCSV" data-toggle="tooltip" data-placement="bottom">Seleccione un archivo</label>
                         </div>
                       </div>
+                      <div class="col-md-2 col-lg-2">
+                        <button type="button" id="btnPredecir" class="btn azul-experta" onclick="fileValidation()" data-toggle="tooltip" data-placement="bottom" title="Predecir">Predecir <i class="fa fa-magic"></i></button>
+                    </div>
                 </div>
 
                 <div class="row mb-12 wow fadeIn">
-                    <button type="button" id="btnPredecir" class="btn btn-lg azul-experta col-lg-11 fa fa-upload fa-3x" onclick="fileValidation()"> Predecir</button>
+                   
                 </div>
 
                 <div id="loader"></div>
@@ -69,20 +72,33 @@
                   
                     <table id="dtBasic" class="table table-hover table-lg" cellspacing="0" width="100%">
 
-                        <thead class="azul-experta-2 white-text">
+                        <thead class="white verde-experta-text">
                           <tr>
+                            <th scope="col">ID 
+                            </th>
                             <th scope="col">SEVERIDAD 
                             </th>
                             <th scope="col">CAUSA 
                             </th>
                             <th scope="col">PARTE DEL CUERPO 
                             </th>
+                            <th scope="col">PRESTADOR 
+                            </th>
+                            <th scope="col">TIPO DE POLIZA 
+                            </th>
                             <th scope="col">% JUICIO 
+                            </th>
+                            <th scope="col">TIENE JUICIO 
                             </th>
                           </tr>
                         </thead>
                     </table>
 
+                </div>
+
+                
+                <div class="row mb-12 wow fadeIn" id="rowGrid">                     
+                    <canvas id="myChart"></canvas>
                 </div>
 
             </section>
@@ -145,6 +161,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
 </body>
 
 </html>
