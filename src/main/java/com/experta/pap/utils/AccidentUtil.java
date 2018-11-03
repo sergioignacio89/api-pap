@@ -70,8 +70,12 @@ public class AccidentUtil {
 		data.add(accident.getSiniestradoNacionalidad());
 		data.add(accident.getSiniestradoCP());
 		data.add(accident.getSiniestradoSexo());
-		
-		data.add("\"" + accident.getSiniestradoFhNacimiento() + "\"");
+
+		if((accident.getSiniestradoFhNacimiento() == null) || ((accident.getSiniestradoFhNacimiento().equals("null"))) ) {
+			data.add(accident.getSiniestradoFhNacimiento());
+		}  else {
+			data.add("\"" + accident.getSiniestradoFhNacimiento() + "\"");
+		}
 		data.add("\"" + accident.getTipoPoliza() + "\"");
 		data.add("\"" + accident.getLocalidadPoliza() + "\"");
 
