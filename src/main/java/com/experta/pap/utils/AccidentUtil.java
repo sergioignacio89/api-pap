@@ -9,6 +9,12 @@ import java.util.List;
 
 import com.experta.pap.model.Accident;
 
+/**
+ * Clase utilitaria para {@link Accident}
+ * 
+ * @author Sergio Massa
+ *
+ */
 public class AccidentUtil {
 
 	private static DecimalFormat decimalFormat;
@@ -21,6 +27,18 @@ public class AccidentUtil {
 		decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
 		decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
 	}
+	
+	/**
+	 * Mapea los atributos de {@link Accident} para que sea aceptado por IBM Watson
+	 * 
+	 * @author Sergio Massa
+	 * 
+	 * @param accident
+
+	 * @return lista de los atributos del {@link Accident}
+	 * 
+	 * @throws ParseException
+	 */
 	
 	public static List<String> retrieveData(Accident accident) throws ParseException {
 
@@ -60,6 +78,15 @@ public class AccidentUtil {
 		return data;
 	}
 	
+	/**
+	 * Formatea el valor de prediccion
+	 * 
+	 * @author Sergio Massa
+	 * 
+	 * @param value
+	 * 
+	 * @return value formateado
+	 */
 	public static double parsePredictionValue(double value) {
 		
 		String d = decimalFormat.format(value);

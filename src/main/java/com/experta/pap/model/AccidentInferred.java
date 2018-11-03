@@ -1,10 +1,17 @@
 package com.experta.pap.model;
 
+/**
+ * Wrapper que contiene un siniestro y el porcentaje de prediccion para que
+ * derive en juicio
+ * 
+ * @author Sergio Massa
+ * @see Accident
+ */
 public class AccidentInferred {
 
 	private Accident accident;
 	private String inferredValue;
-	
+
 	public AccidentInferred(Accident accident, String inferredValue) {
 		this.accident = accident;
 		this.inferredValue = inferredValue;

@@ -9,8 +9,26 @@ import com.experta.pap.enumerators.DateFormatEnum;
 import com.experta.pap.enumerators.DefaultValuesEnum;
 import com.experta.pap.exceptions.InputTypeException;
 
+/**
+ * <p>
+ * Clase utilitaria para tratamientos de caracteres en general
+ * </p>
+ * 
+ * @author Sergio Massa
+ *
+ */
 public class StringUtil {
 
+	/**
+	 * Enriquece los datos: - elimina tildes, - convierte Ò a n, - elimina saltos de
+	 * linea
+	 *
+	 * @param data
+	 * @return string enriquecido
+	 * 
+	 * @author Sergio Massa
+	 * 
+	 */
 	public static String purifyAccident(String data) {
 		data = stripAccents(data);
 		data = change—toN(data);
@@ -18,6 +36,7 @@ public class StringUtil {
 		return data;
 	}
 
+	
 	private static String stripAccents(String data) {
 		data = Normalizer.normalize(data, Normalizer.Form.NFD);
 		data = data.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
@@ -33,6 +52,17 @@ public class StringUtil {
 		data = data.replaceAll("\r\n", "");
 		return data;
 	}
+	
+	/**
+	 * Valida si el valor es numerico
+	 *
+	 * @author Sergio Massa
+	 * 
+	 * @param numero en formato String
+	 * 
+	 * @return true or false
+	 * 
+	 */
 	public static boolean isNumber(String s) {
 		try {
 			Float.parseFloat(s);
@@ -44,6 +74,18 @@ public class StringUtil {
 		return true;
 	}
 
+	/**
+	 * Enriquece un valor numerico manteniendo el tipo de dato String
+	 *
+	 * @author Sergio Massa
+	 * 
+	 * @param number en formato String
+	 * 
+	 * @return String numerico enriquecido
+	 * 
+	 * @throws InputTypeException
+	 * 
+	 */
 	public static String convertToInteger(String number) throws InputTypeException {
 
 		number = number.trim();
@@ -57,6 +99,16 @@ public class StringUtil {
 		return number;
 	}
 
+	/**
+	 * Formatea un date en formato String
+	 *
+	 * @author Sergio Massa
+	 * 
+	 * @param strDate en formato String
+	 * 
+	 * @return String date formateado
+	 * 
+	 */
 	public static String parseToDate(String strDate) {
 
 		strDate = strDate.trim();

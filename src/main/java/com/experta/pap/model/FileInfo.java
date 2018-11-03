@@ -1,5 +1,11 @@
 package com.experta.pap.model;
 
+/**
+ * Modelo que contiene informacion sobre el archivo excel para prediccion
+ * 
+ * @author Sergio Massa
+ *
+ */
 public class FileInfo {
 
 	private String _fileName;

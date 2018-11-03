@@ -1,5 +1,10 @@
 package com.experta.pap.exceptions;
 
+/**
+ * Excepciones emitidas cuando hubo un error de parseo
+ * 
+ * @author Sergio Massa
+ */
 public class ParseException extends Exception {
 
 	/**

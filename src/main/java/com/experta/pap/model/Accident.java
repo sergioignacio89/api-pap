@@ -2,6 +2,16 @@ package com.experta.pap.model;
 
 import com.experta.pap.exceptions.ParseException;
 
+/**
+ * Modelo que mapea los siniestros a predecir
+ * 
+ * <p>
+ * Cada atributo representa una columna en el excel de siniestros
+ * </p>
+ * 
+ * @author Sergio Massa
+ *
+ */
 public class Accident {
 
 	private String id;
@@ -34,6 +44,17 @@ public class Accident {
 	public Accident() {
 	}
 
+	
+	/**
+	 * Constructor sobrecargado
+	 * 
+	 * @author Sergio Massa
+	 * 
+	 * @param data cuyos valores estan separados por ;
+	 * <p> El orden de los valores debe coincidir con el de las columnas del excel
+	 * </p>
+	 * @throws ParseException
+	 */
 	public Accident(String data) throws ParseException {
 
 		String[] values = data.split(";");

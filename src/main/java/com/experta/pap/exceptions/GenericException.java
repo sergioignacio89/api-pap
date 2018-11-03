@@ -1,5 +1,10 @@
 package com.experta.pap.exceptions;
 
+/**
+ * Excepciones de tipo generales
+ * 
+ * @author Sergio Massa
+ */
 public class GenericException extends Exception {
 
 	/**

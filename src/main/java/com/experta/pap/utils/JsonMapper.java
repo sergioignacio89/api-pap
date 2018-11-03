@@ -10,13 +10,43 @@ import com.experta.pap.model.AccidentInferred;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Clase utilitaria para tratamiento de json
+ * 
+ * @author Sergio Massa
+ *
+ */
 public class JsonMapper {
 
+	/**
+	 * Convierte un json a siniestro
+	 * 
+	 * @deprecated
+	 * @author Sergio Massa
+	 * 
+	 * @param documentos
+	 *            en formato json
+	 * 
+	 * @return lista de {@link Accident}
+	 * 
+	 */
 	public static List<Accident> convertJsonToAccident(List<String> listDocuments) {
 
 		return null;
 	}
 
+	/**
+	 * Convierte siniestros a formato json
+	 *
+	 * @author Sergio Massa
+	 * 
+	 * @param siniestros
+	 * 
+	 * @return array de json
+	 * 
+	 * @throws GenericException
+	 * 
+	 */
 	public static String convertAccidentToJson(List<Accident> accidents) throws GenericException {
 
 		String json = "";
@@ -30,6 +60,18 @@ public class JsonMapper {
 		return json;
 	}
 
+	/**
+	 * Recupera los valores de prediccion
+	 *
+	 * @author Sergio Massa
+	 * 
+	 * @param jsonStringScoring
+	 * 
+	 * @return lista de predicciones
+	 * 
+	 * @throws Exception
+	 * 
+	 */
 	public static List<String> getInferredPercentage(String jsonStringScoring) throws Exception {
 
 		List<String> inferredPercentage = new ArrayList<>();
@@ -60,6 +102,23 @@ public class JsonMapper {
 		return inferredPercentage;
 	}
 
+	
+	/**
+	 * Asocia siniestro con valor de prediccion
+	 *
+	 * @author Sergio Massa
+	 * 
+	 * @param accidents
+	 *            {@link Accident}
+	 * @param inferredPercentage
+	 *            list
+	 * 
+	 * @return lista de {@link AccidentInferred}
+	 * 
+	 * @throws GenericException
+	 * @throws Exception
+	 * 
+	 */
 	public static List<AccidentInferred> convertJsonToAccidentInferred(List<Accident> accidents,
 			List<String> inferredPercentage) throws GenericException, Exception {
 

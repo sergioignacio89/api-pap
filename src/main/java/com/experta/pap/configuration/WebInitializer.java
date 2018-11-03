@@ -18,7 +18,8 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected String[] getServletMappings() {
-		// TODO Auto-generated method stub
+		
+//		se configura el contexto del servlet a /rest
 		return new String[] { "/rest/*" };
 	}
 

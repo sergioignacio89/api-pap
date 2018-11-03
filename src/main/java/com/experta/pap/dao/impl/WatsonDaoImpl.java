@@ -16,9 +16,30 @@ import com.experta.pap.exceptions.ConnectionException;
 import com.experta.pap.exceptions.GenericException;
 import com.experta.pap.utils.Resources;
 
+/**
+ * Capa de persistencia.
+ * 
+ * <p>
+ * Realiza la comunicacion con IBM Watson para prediccion de siniestros.
+ * </p>
+ * 
+ * @author Sergio Massa
+ *
+ */
 @Repository
 public class WatsonDaoImpl implements IWatsonDao {
 
+	/**
+	 * Metodo que realiza la conexion con IBM Watson para predecir siniestros.
+	 * 
+	 * @author Sergio Massa
+	 * 
+	 * @param values de siniestros en formato json
+	 * @return  respuesta obtenida por IBM Watson
+	 * @throws GenericException
+	 * @throws ConnectionException
+	 * 
+	 */
 	public String predictAccidents(String values) throws GenericException, ConnectionException {
 
 		StringBuffer jsonStringScoring = new StringBuffer();

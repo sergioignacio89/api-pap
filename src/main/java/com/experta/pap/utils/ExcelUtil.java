@@ -15,6 +15,12 @@ import com.experta.pap.controller.AccidentController;
 import com.experta.pap.enumerators.DefaultValuesEnum;
 import com.experta.pap.model.Accident;
 
+/**
+ * Clase utilitaria para tratamiento del excel de siniestros
+ * 
+ * @author Sergio Massa
+ *
+ */
 public class ExcelUtil {
 
 	private static final Logger LOGGER = Logger.getLogger(AccidentController.class.getName());
@@ -26,6 +32,26 @@ public class ExcelUtil {
 
 	}
 
+	/**
+	 * Convierte cada registro del excel en un siniestro.
+	 * 
+	 * <p>
+	 * Metodo principal que contiene toda la logica de mapeo
+	 * </p>
+	 * <p>
+	 * El orden de las columnas debe coincidir con el orden de los atributos de la
+	 * clase {@link Accident}
+	 * </p>
+	 * 
+	 * @author Sergio Massa
+	 * 
+	 * @param excelFile
+	 *            de tipo {@link FileInputStream}
+	 * 
+	 * @return lista de{@link Accident}
+	 * 
+	 * @throws Exception
+	 */
 	public List<Accident> fromExcelToAccidents(FileInputStream excelFile) throws Exception {
 
 		List<Accident> accidents = new ArrayList<Accident>();

@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +22,16 @@ import com.experta.pap.model.dto.ResponseInferredDTO;
 import com.experta.pap.service.IAccidentService;
 import com.experta.pap.service.IFileService;
 
+/**
+ * Controlador para prediccion de siniestros.
+ * 
+ * <p>
+ * Las predicciones se realizaran recibiendo como input un excel.
+ * </p>
+ * 
+ * @author Sergio Massa
+ *
+ */
 @RestController
 @RequestMapping("/accidents")
 public class AccidentController {
@@ -35,10 +43,21 @@ public class AccidentController {
 	@Autowired
 	private IFileService fileService;
 
+	/**
+	 * Endpoint para prediccion de siniestros.
+	 * 
+	 * @author Sergio Massa
+	 * 
+	 * @param file de tipo {@link MultipartFile}
+	 * @return  Wrapper con lista de siniestros
+	 * 
+	 * @see AccidentInferred
+	 * @see ResponseInferredDTO 
+	 */
+	
 	@CrossOrigin
 	@RequestMapping(value = "/predict", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseInferredDTO> uploadAccidentsFile(@RequestParam("file") MultipartFile file,
-			HttpSession session) {
+	public ResponseEntity<ResponseInferredDTO> uploadAccidentsFile(@RequestParam("file") MultipartFile file) {
 
 		ResponseEntity<ResponseInferredDTO> response;
 		ResponseInferredDTO responseAccidentDTO = new ResponseInferredDTO();
