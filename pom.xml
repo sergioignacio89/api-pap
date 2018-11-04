@@ -4,7 +4,7 @@
 	<groupId>com.experta.pap</groupId>
 	<artifactId>api-pap</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>PAP Webapp</name>
 	<url>http://maven.apache.org</url>
 
