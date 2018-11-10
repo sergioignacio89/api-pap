@@ -101,7 +101,7 @@ public class ExcelUtil {
 						case 20:
 						case 21:
 						case 22:
-							if (cell == null) {
+							if (cell == null || cell.toString().equals("")) {
 								cellValue = DefaultValuesEnum.number.getValue();
 							} else {
 								String cellTmp = cell.toString();
