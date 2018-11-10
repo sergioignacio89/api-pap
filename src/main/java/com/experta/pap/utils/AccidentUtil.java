@@ -50,9 +50,9 @@ public class AccidentUtil {
 		data.add("\"" + accident.getSiniestradoDescUltimoDX() + "\"");
 		
 //		data.add(accident.getSiniestroFKT());
-//		data.add(accident.getSiniestroAltaMedica());
 		data.add("\"" + accident.getSiniestroFKT() + "\"");
-		data.add("\"" + accident.getSiniestroAltaMedica() + "\"");
+		data.add(accident.getSiniestroAltaMedica());
+//		data.add("\"" + accident.getSiniestroAltaMedica() + "\"");
 		data.add(accident.getSiniestroDiagnostico());
 		data.add("\"" + accident.getSiniestroCirugia() + "\"");
 		data.add("\"" + accident.getSiniestroEstudios() + "\"");
