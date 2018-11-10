@@ -86,7 +86,7 @@ public class JsonMapper {
 
 			JsonNode node = iterator.next();
 
-			JsonNode index0 = node.get(26);
+			JsonNode index0 = node.get(25);
 //			double percentageForNonJudgment = index0.get(0).asDouble() * 100;
 			double percentageForJudgment = index0.get(1).asDouble() * 100;
 			

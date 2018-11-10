@@ -19,7 +19,6 @@ public class Accident {
 	private String siniestroCausa;
 	private String siniestroParteCuerpo;
 	private String siniestradoDescUltimoDX;
-	private String siniestroCircunstancia;
 	private String siniestroFKT;
 	private String siniestroAltaMedica;
 	private String siniestroDiagnostico;
@@ -59,7 +58,7 @@ public class Accident {
 
 		String[] values = data.split(";");
 
-		if (values.length != 26) {
+		if (values.length != 25) {
 			throw new ParseException("Incorrect number of fields");
 		}
 		
@@ -68,27 +67,26 @@ public class Accident {
 		siniestroCausa = values[2];
 		siniestroParteCuerpo = values[3];
 		siniestradoDescUltimoDX = values[4];
-		siniestroCircunstancia = values[5];
-		siniestroFKT = values[6];
-		siniestroAltaMedica = values[7];
-		siniestroDiagnostico = values[8];
-		siniestroCirugia = values[9];
-		siniestroEstudios = values[10];
-		siniestroPeriodo = values[11];
-		siniestroPrestadorProvincia = values[12];
-		siniestroCanalIngreso = values[13];
-		siniestroCaseSML = values[14];
-		siniestroCaseSupervisor = values[15];
-		siniestroPrestador = values[16];
-		empresaCP = values[17];
-		empresaProvincia = values[18];
-		juicioTiene = values[19];
-		siniestradoNacionalidad = values[20];
-		siniestradoCP = values[21];
-		siniestradoSexo = values[22];
-		siniestradoFhNacimiento = values[23];
-		tipoPoliza = values[24];
-		localidadPoliza = values[25];
+		siniestroFKT = values[5];
+		siniestroAltaMedica = values[6];
+		siniestroDiagnostico = values[7];
+		siniestroCirugia = values[8];
+		siniestroEstudios = values[9];
+		siniestroPeriodo = values[10];
+		siniestroPrestadorProvincia = values[11];
+		siniestroCanalIngreso = values[12];
+		siniestroCaseSML = values[13];
+		siniestroCaseSupervisor = values[14];
+		siniestroPrestador = values[15];
+		empresaCP = values[16];
+		empresaProvincia = values[17];
+		juicioTiene = values[18];
+		siniestradoNacionalidad = values[19];
+		siniestradoCP = values[20];
+		siniestradoSexo = values[21];
+		siniestradoFhNacimiento = values[22];
+		tipoPoliza = values[23];
+		localidadPoliza = values[24];
 
 	}
 
@@ -130,14 +128,6 @@ public class Accident {
 
 	public void setSiniestradoDescUltimoDX(String siniestradoDescUltimoDX) {
 		this.siniestradoDescUltimoDX = siniestradoDescUltimoDX;
-	}
-
-	public String getSiniestroCircunstancia() {
-		return siniestroCircunstancia;
-	}
-
-	public void setSiniestroCircunstancia(String siniestroCircunstancia) {
-		this.siniestroCircunstancia = siniestroCircunstancia;
 	}
 
 	public String getSiniestroFKT() {
@@ -304,7 +294,7 @@ public class Accident {
 	public String toString() {
 		return "Accident [id=" + id + ", siniestroSeveridad=" + siniestroSeveridad + ", siniestroCausa="
 				+ siniestroCausa + ", siniestroParteCuerpo=" + siniestroParteCuerpo + ", siniestradoDescUltimoDX="
-				+ siniestradoDescUltimoDX + ", siniestroCircunstancia=" + siniestroCircunstancia + ", siniestroFKT="
+				+ siniestradoDescUltimoDX + ", siniestroFKT="
 				+ siniestroFKT + ", siniestroAltaMedica=" + siniestroAltaMedica + ", siniestroDiagnostico="
 				+ siniestroDiagnostico + ", siniestroCirugia=" + siniestroCirugia + ", siniestroEstudios="
 				+ siniestroEstudios + ", siniestroPeriodo=" + siniestroPeriodo + ", siniestroPrestadorProvincia="
