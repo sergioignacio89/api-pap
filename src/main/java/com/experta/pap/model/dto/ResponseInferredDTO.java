@@ -3,33 +3,45 @@ package com.experta.pap.model.dto;
 import java.util.List;
 
 import com.experta.pap.model.AccidentInferred;
+import com.experta.pap.model.RangeConfiguration;
+import com.experta.pap.model.WrapperRangeConfiguration;
 
 /**
  * DTO de respuesta con listado de siniestros y sus predicciones
  * 
  * @author Sergio Massa
  * @see AccidentInferred
- * @see
+ * @see WrapperRangeConfiguration
+ * @see RangeConfiguration
  */
 public class ResponseInferredDTO {
 
-	List<AccidentInferred> _accidents;
-	String _errorMessage;
+	List<AccidentInferred> accidents;
+	WrapperRangeConfiguration ranges;
+	String errorMessage;
 
-	public List<AccidentInferred> get_accidents() {
-		return _accidents;
+	public List<AccidentInferred> getAccidents() {
+		return accidents;
 	}
 
-	public void set_accidents(List<AccidentInferred> _accidents) {
-		this._accidents = _accidents;
+	public void setAccidents(List<AccidentInferred> accidents) {
+		this.accidents = accidents;
 	}
 
-	public String get_errorMessage() {
-		return _errorMessage;
+	public WrapperRangeConfiguration getRanges() {
+		return ranges;
 	}
 
-	public void set_errorMessage(String _errorMessage) {
-		this._errorMessage = _errorMessage;
+	public void setRanges(WrapperRangeConfiguration ranges) {
+		this.ranges = ranges;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 }
