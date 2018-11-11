@@ -71,7 +71,8 @@ public class ExcelUtil {
 
 					StringBuilder rowValue = new StringBuilder();
 
-					for (int i1 = 0; i1 < 26; i1++) {
+
+					for (int i1 = 0; i1 < 25; i1++) {
 						String cellValue;
 						Cell cell = row.getCell(i1);
 
@@ -81,26 +82,22 @@ public class ExcelUtil {
 								cellValue = DefaultValuesEnum.string.getValue();
 							} else {
 								String cellTmp = cell.toString();
-								
-								if(StringUtil.isNumber(cellTmp)) {
-									cellValue = StringUtil.convertToInteger(cellTmp);
-								}else {
-									cellValue = cellTmp;
-								}
+								cellValue = cellTmp;
+//								if(StringUtil.isNumber(cellTmp)) {
+//									cellValue = StringUtil.convertToInteger(cellTmp);
+//								}else {
+//									cellValue = cellTmp;
+//								}
 							}
 							break;
-						case 6:
 						case 7:
-						case 8:
-						case 9:
 						case 10:
-						case 11:
+						case 16:
 						case 17:
-						case 18:
+						case 18: //campo juicioTiene?
 						case 19:
 						case 20:
 						case 21:
-						case 22:
 							if (cell == null || cell.toString().equals("")) {
 								cellValue = DefaultValuesEnum.number.getValue();
 							} else {
@@ -108,7 +105,7 @@ public class ExcelUtil {
 								cellValue = StringUtil.convertToInteger(cellTmp);
 							}
 							break;
-						case 23:
+						case 22:
 							if (cell == null) {
 								cellValue = DefaultValuesEnum.date.getValue();
 							} else {
