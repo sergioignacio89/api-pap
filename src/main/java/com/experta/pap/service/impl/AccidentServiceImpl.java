@@ -11,6 +11,7 @@ import com.experta.pap.exceptions.ConnectionException;
 import com.experta.pap.exceptions.GenericException;
 import com.experta.pap.model.Accident;
 import com.experta.pap.model.AccidentInferred;
+import com.experta.pap.model.WrapperRangeConfiguration;
 import com.experta.pap.service.IAccidentService;
 import com.experta.pap.utils.AccidentUtil;
 import com.experta.pap.utils.JsonMapper;
@@ -71,4 +72,24 @@ public class AccidentServiceImpl implements IAccidentService {
 		return accidentsInferred;
 	}
 
+	
+	/**
+	 * Recupera los rangos de criticidad de los porcentajes de siniestros
+	 * 
+	 * @author Sergio Massa
+	 * 
+	 * @param rangos de criticidad
+	 * @return  Lista de siniestros y sus predicciones {@link AccidentInferred}
+	 * 
+	 * @see WrapperRangeConfiguration
+	 * @throws GenericException
+	 */
+	@Override
+	public WrapperRangeConfiguration getRangesConfiguration() throws GenericException {
+
+		WrapperRangeConfiguration ranges = AccidentUtil.getRangeConfiguration();
+		return ranges;
+	}
+
+	
 }

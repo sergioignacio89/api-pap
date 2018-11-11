@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.experta.pap.model.Accident;
 import com.experta.pap.model.AccidentInferred;
 import com.experta.pap.model.FileInfo;
+import com.experta.pap.model.WrapperRangeConfiguration;
 import com.experta.pap.model.dto.ResponseInferredDTO;
 import com.experta.pap.service.IAccidentService;
 import com.experta.pap.service.IFileService;
@@ -49,9 +50,10 @@ public class AccidentController {
 	 * @author Sergio Massa
 	 * 
 	 * @param file de tipo {@link MultipartFile}
-	 * @return  Wrapper con lista de siniestros
+	 * @return  Wrapper con lista de siniestros y los rangos de criticidad de los porcentajes de siniestros
 	 * 
 	 * @see AccidentInferred
+	 * @see WrapperRangeConfiguration
 	 * @see ResponseInferredDTO 
 	 */
 	
@@ -65,7 +67,7 @@ public class AccidentController {
 		if ((file == null) || (file.isEmpty())) {
 			String errorMessage = "the excel file is empty";
 			LOGGER.log(Level.SEVERE, errorMessage);
-			responseAccidentDTO.set_errorMessage(errorMessage);
+			responseAccidentDTO.setErrorMessage(errorMessage);
 			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.BAD_REQUEST);
 			return response;
 		}
@@ -78,24 +80,27 @@ public class AccidentController {
 			if(accidents.size() == 0) {
 				String errorMessage = "no accidents were found in the excel file";
 				LOGGER.severe(errorMessage);
-				responseAccidentDTO.set_errorMessage(errorMessage);
+				responseAccidentDTO.setErrorMessage(errorMessage);
 				response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.BAD_REQUEST);
 				return response;
 			}
 			
 			List<AccidentInferred> accidentInferred = accidentService.predictAccidents(accidents);
+			responseAccidentDTO.setAccidents(accidentInferred);
 
-			responseAccidentDTO.set_accidents(accidentInferred);
+			WrapperRangeConfiguration rangesConfiguration = accidentService.getRangesConfiguration();
+			responseAccidentDTO.setRanges(rangesConfiguration);
+
 			response = new ResponseEntity<>(responseAccidentDTO, HttpStatus.OK);
 
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, e.getMessage());
 			e.printStackTrace();
-			responseAccidentDTO.set_errorMessage(e.getMessage());
+			responseAccidentDTO.setErrorMessage(e.getMessage());
 			response = new ResponseEntity<ResponseInferredDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		return response;
 	}
-
+		
 }
