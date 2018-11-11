@@ -7,11 +7,17 @@ public class GeneralTest {
 
 	public static void main(String[] args) throws Exception {
 
-		Date d = new Date();
-		System.out.println(d);
-				
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyy-MM-dd");
-		System.out.println(sdf1.format(d));
+		String date = "11/10/1989";
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date d = sdf.parse(date);
+
+		long time = d.getTime();
+		java.sql.Timestamp timestamp = new java.sql.Timestamp(time);
+
+		System.out.println(timestamp);
+		System.out.println(timestamp.toString());
+
 
 	}
 

@@ -125,7 +125,12 @@ public class StringUtil {
 
 				try {
 					Date date = parseFrom.parse(strDate);
-					strDate = parseTo.format(date);
+//					strDate = parseTo.format(date);
+					
+					long time = date.getTime();
+					java.sql.Timestamp timestamp = new java.sql.Timestamp(time);
+					strDate = timestamp.toString();
+					
 					b = true;
 					break;
 				} catch (ParseException e) {
