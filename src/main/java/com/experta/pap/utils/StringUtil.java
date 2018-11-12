@@ -49,7 +49,7 @@ public class StringUtil {
 	}
 
 	public static String avoidLineBreak(String data) {
-		data = data.replaceAll("\r\n", "");
+		data = data.replaceAll("\n", "");
 		return data;
 	}
 	
