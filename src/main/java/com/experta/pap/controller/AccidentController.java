@@ -112,7 +112,7 @@ public class AccidentController {
 			e.printStackTrace();
 			
 			responseAccidentDTO.setFriendlyError(
-					"Error al mapear siniestros del archivo excel. Compruebe el formato del mismo");
+					"Error al mapear siniestros del archivo excel. Compruebe el formato del mismo: " + e.getMessage());
 			responseAccidentDTO.setErrorMessage(e.getMessage());
 			
 			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -130,7 +130,7 @@ public class AccidentController {
 			LOGGER.log(Level.SEVERE, e.getMessage());
 			e.printStackTrace();
 			responseAccidentDTO.setFriendlyError(
-					"Error en consultar a IBM Watson");
+					"Error en consultar a IBM Watson. Valores enviados inconsistentes con los tipos de datos esperados");
 			responseAccidentDTO.setErrorMessage(e.getMessage());
 			
 			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.INTERNAL_SERVER_ERROR);
