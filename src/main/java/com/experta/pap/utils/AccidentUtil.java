@@ -10,7 +10,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 import com.experta.pap.controller.AccidentController;
-import com.experta.pap.exceptions.GenericException;
+import com.experta.pap.exceptions.ResourcesException;
 import com.experta.pap.model.Accident;
 import com.experta.pap.model.RangeConfiguration;
 import com.experta.pap.model.WrapperRangeConfiguration;
@@ -112,11 +112,12 @@ public class AccidentUtil {
 	 * @author Sergio Massa
 	 * 
 	 * @return list de rangos
+	 * @throws ResourcesException 
 	 * 
 	 * @see RangeConfiguration
 	 * @see WrapperRangeConfiguration
 	 */
-	public static WrapperRangeConfiguration getRangeConfiguration() throws GenericException {
+	public static WrapperRangeConfiguration getRangeConfiguration() throws ResourcesException {
 	
 		if(rangesConfiguration == null) {
 			loadRangeConfigurationWrapper();
@@ -130,43 +131,83 @@ public class AccidentUtil {
 	 * 
 	 * @author Sergio Massa
 	 * 
+	 * @throws ResourcesException
 	 * @see RangeConfiguration 
 	 * @see WrapperRangeConfiguration
 	 */
-	private static void loadRangeConfigurationWrapper() throws GenericException {
+	private static void loadRangeConfigurationWrapper() throws ResourcesException {
 
 		try {
 			Properties prop = Resources.getProperties();
 
 			rangesConfiguration = new WrapperRangeConfiguration();
 			
+			//..........LOW..........//
 			RangeConfiguration low = new RangeConfiguration();
-			low.setCaption(String.valueOf(prop.get("pap.ranges.type.low.caption")));
-			low.setMin(String.valueOf(prop.get("pap.ranges.type.low.min")));
-			low.setMax(String.valueOf(prop.get("pap.ranges.type.low.max")));
+
+			String caption = String.valueOf(prop.get("pap.ranges.type.low.caption"));
+			String min = String.valueOf(prop.get("pap.ranges.type.low.min"));
+			String max = String.valueOf(prop.get("pap.ranges.type.low.max"));
+
+			validateNullableValues(caption, min, max);
+			
+			low.setCaption(String.valueOf(caption));
+			low.setMin(String.valueOf(min));
+			low.setMax(String.valueOf(max));
 			rangesConfiguration.setLow(low);
 
+			//..........MIDDLE..........//			
 			RangeConfiguration middle = new RangeConfiguration();
-			middle.setCaption(String.valueOf(prop.get("pap.ranges.type.middle.caption")));
-			middle.setMin(String.valueOf(prop.get("pap.ranges.type.middle.min")));
-			middle.setMax(String.valueOf(prop.get("pap.ranges.type.middle.max")));
+			
+			caption = String.valueOf(prop.get("pap.ranges.type.middle.caption"));
+			min = String.valueOf(prop.get("pap.ranges.type.middle.min"));
+			max = String.valueOf(prop.get("pap.ranges.type.middle.max"));
+			
+			validateNullableValues(caption, min, max);
+			
+			middle.setCaption(caption);
+			middle.setMin(min);
+			middle.setMax(max);
 			rangesConfiguration.setMiddle(middle);
 
+			//..........CRITICAL..........//
 			RangeConfiguration critical = new RangeConfiguration();
-			critical.setCaption(String.valueOf(prop.get("pap.ranges.type.critical.caption")));
-			critical.setMin(String.valueOf(prop.get("pap.ranges.type.critical.min")));
-			critical.setMax(String.valueOf(prop.get("pap.ranges.type.critical.max")));
+			
+			caption = String.valueOf(prop.get("pap.ranges.type.critical.caption"));
+			min = String.valueOf(prop.get("pap.ranges.type.critical.min"));
+			max = String.valueOf(prop.get("pap.ranges.type.critical.max"));
+			
+			validateNullableValues(caption, min, max);
+			
+			critical.setCaption(caption);
+			critical.setMin(min);
+			critical.setMax(max);
 			rangesConfiguration.setCritical(critical);
 
 		} catch (Exception e) {
 			LOGGER.severe(e.getMessage());
 			e.printStackTrace();
 			rangesConfiguration = null;
-			throw new GenericException("error creating configuration ranges");
+			throw e;
 
 		} finally {
 			
 		}
-
+	}
+	
+	/**
+	 * Valida que los valores de rangos de criticidad no sean nulos o vacios
+	 * 
+	 * @author Sergio Massa
+	 * 
+	 * @throws ResourcesException
+	 */
+	private static void validateNullableValues(String caption, String min, String max) throws ResourcesException {
+		
+		if ((caption == "null") || (caption.equals("")) || (min == "null") || (min.equals("")) || (max == "null")
+				|| (max.equals(""))) {
+			
+			throw new ResourcesException("Los valores de rangos de criticidad son null o empty");
+		}
 	}
 }

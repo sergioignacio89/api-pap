@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.experta.pap.exceptions.BusinessException;
+import com.experta.pap.exceptions.ExcelException;
+import com.experta.pap.exceptions.FileException;
+import com.experta.pap.exceptions.ResourcesException;
 import com.experta.pap.model.Accident;
 import com.experta.pap.model.FileInfo;
 
@@ -26,12 +29,13 @@ public interface IFileService {
 	 * @param file
 	 * @return FileInfo con informacion general del archivo descargado
 	 * 
-	 * @throws BusinessException
+	 * @throws FileException 
+	 * @throws ResourcesException 
 	 * 
 	 * @see FileInfo
 	 * @see MultipartFile
 	 */
-	public FileInfo saveFileToLocalTemp(MultipartFile file) throws BusinessException;
+	public FileInfo saveFileToLocalTemp(MultipartFile file) throws FileException, ResourcesException;
 
 	/**
 	 * Metodo para desarrollar la logica de lectura de archivo.
@@ -43,10 +47,13 @@ public interface IFileService {
 	 * @return Lista de siniestros
 	 * 
 	 * @throws BusinessException
+	 * @throws ResourcesException 
+	 * @throws ExcelException 
+	 * @throws  
 	 * 
 	 * @see Accident
 	 */
-	public List<Accident> readFile(String name) throws BusinessException;
+	public List<Accident> readFile(String name) throws BusinessException, ResourcesException, ExcelException;
 
 	/**
 	 * Metodo para desarrollar la logica de creacion de archivo en directorio

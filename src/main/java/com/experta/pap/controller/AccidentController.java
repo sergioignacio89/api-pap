@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.experta.pap.exceptions.ConnectionException;
+import com.experta.pap.exceptions.ExcelException;
+import com.experta.pap.exceptions.FileException;
+import com.experta.pap.exceptions.RequestWatsonException;
+import com.experta.pap.exceptions.ResourcesException;
 import com.experta.pap.model.Accident;
 import com.experta.pap.model.AccidentInferred;
 import com.experta.pap.model.FileInfo;
@@ -65,39 +70,86 @@ public class AccidentController {
 		ResponseInferredDTO responseAccidentDTO = new ResponseInferredDTO();
 
 		if ((file == null) || (file.isEmpty())) {
-			String errorMessage = "the excel file is empty";
+			String errorMessage = "El archivo excel no tiene contenido";
 			LOGGER.log(Level.SEVERE, errorMessage);
 			responseAccidentDTO.setErrorMessage(errorMessage);
 			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.BAD_REQUEST);
 			return response;
 		}
-
 		try {
 			FileInfo fileInfo = fileService.saveFileToLocalTemp(file);
 
 			List<Accident> accidents = fileService.readFile(fileInfo.get_fileName());
-			
-			if(accidents.size() == 0) {
-				String errorMessage = "no accidents were found in the excel file";
+
+			if (accidents.size() == 0) {
+				String errorMessage = "El archivo de excel no contiene siniestros a predecir";
 				LOGGER.severe(errorMessage);
 				responseAccidentDTO.setErrorMessage(errorMessage);
 				response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.BAD_REQUEST);
 				return response;
 			}
-			
-			List<AccidentInferred> accidentInferred = accidentService.predictAccidents(accidents);
-			responseAccidentDTO.setAccidents(accidentInferred);
 
 			WrapperRangeConfiguration rangesConfiguration = accidentService.getRangesConfiguration();
+			List<AccidentInferred> accidentInferred = accidentService.predictAccidents(accidents);
+
+			responseAccidentDTO.setAccidents(accidentInferred);
 			responseAccidentDTO.setRanges(rangesConfiguration);
 
 			response = new ResponseEntity<>(responseAccidentDTO, HttpStatus.OK);
 
+		} catch (ConnectionException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			
+			responseAccidentDTO.setFriendlyError(
+					"Error en la conexion a Watson. Revise las credenciales en el archivo properties de configuracion");
+			responseAccidentDTO.setErrorMessage(e.getMessage());
+			
+			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (ExcelException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			
+			responseAccidentDTO.setFriendlyError(
+					"Error al mapear siniestros del archivo excel. Compruebe el formato del mismo");
+			responseAccidentDTO.setErrorMessage(e.getMessage());
+			
+			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (FileException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			responseAccidentDTO.setFriendlyError(
+					"Error al guardar excel de siniestros en el directorio de temporales");
+			responseAccidentDTO.setErrorMessage(e.getMessage());
+			
+			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (RequestWatsonException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			responseAccidentDTO.setFriendlyError(
+					"Error en consultar a IBM Watson");
+			responseAccidentDTO.setErrorMessage(e.getMessage());
+			
+			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} catch (ResourcesException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			responseAccidentDTO.setFriendlyError("Se produjo un error con el archivo de configuracion. Compruebe que se encuentre correctamente configurado");
+			responseAccidentDTO.setErrorMessage(e.getMessage());
+			
+			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, e.getMessage());
 			e.printStackTrace();
+			responseAccidentDTO.setFriendlyError("Error desconocido");
 			responseAccidentDTO.setErrorMessage(e.getMessage());
-			response = new ResponseEntity<ResponseInferredDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+			
+			response = new ResponseEntity<ResponseInferredDTO>(responseAccidentDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		return response;

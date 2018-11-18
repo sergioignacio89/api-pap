@@ -1,5 +1,11 @@
 package com.experta.pap.model;
 
+/**
+ * Wrapper que contiene los rangos de criticidad
+ * 
+ * @author Sergio Massa
+ *
+ */
 public class WrapperRangeConfiguration {
 
 	private RangeConfiguration low;

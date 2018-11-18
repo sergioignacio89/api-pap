@@ -1,7 +1,7 @@
 package com.experta.pap.exceptions;
 
 /**
- * Excepciones para capa de persistencia
+ * Exception de tipo conexion a IBM Watson
  * 
  * @author Sergio Massa
  */

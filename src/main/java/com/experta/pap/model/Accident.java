@@ -59,7 +59,7 @@ public class Accident {
 		String[] values = data.split(";");
 
 		if (values.length != 25) {
-			throw new ParseException("Incorrect number of fields");
+			throw new ParseException("Numero de campos incorrectos: " + data);
 		}
 		
 		id =values[0];
