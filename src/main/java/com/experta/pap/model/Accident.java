@@ -56,7 +56,7 @@ public class Accident {
 	 */
 	public Accident(String data) throws ParseException {
 
-		String[] values = data.split(";");
+		String[] values = data.split("~");
 
 		if (values.length != 25) {
 			throw new ParseException("Numero de campos incorrectos: " + data);

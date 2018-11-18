@@ -177,7 +177,7 @@ public class ExcelUtil {
 						cellValue = cell.getRichStringCellValue().getString().trim();
 					}
 				}
-				rowValue.append(cellValue).append(";");
+				rowValue.append(cellValue).append("~");
 			}
 		} catch (Exception e) {
 			String errorMessage = "Row number[" + (row.getRowNum() + 1) + "] Accident number["
