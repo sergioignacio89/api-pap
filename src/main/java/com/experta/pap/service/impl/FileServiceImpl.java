@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.experta.pap.exceptions.BusinessException;
+import com.experta.pap.exceptions.ExcelException;
+import com.experta.pap.exceptions.FileException;
+import com.experta.pap.exceptions.ResourcesException;
 import com.experta.pap.model.Accident;
 import com.experta.pap.model.FileInfo;
 import com.experta.pap.service.IFileService;
@@ -45,9 +48,10 @@ public class FileServiceImpl implements IFileService {
 	 * @param file de tipo {@link MultipartFile}
 	 * @return  {@link FileInfo}
 	 * 
-	 * @throws BusinessException
+	 * @throws FileException
+	 * @throws ResourcesException
 	 */
-	public FileInfo saveFileToLocalTemp(MultipartFile file) throws BusinessException {
+	public FileInfo saveFileToLocalTemp(MultipartFile file) throws FileException, ResourcesException {
 
 		FileInfo fileInfo;
 		try {
@@ -61,11 +65,16 @@ public class FileServiceImpl implements IFileService {
 			fileInfo.set_fileName(fileName);
 			fileInfo.set_fileSize(file.getSize());
 
-			LOGGER.log(Level.INFO, "Downloaded file: " + fileInfo.toString());
+			LOGGER.log(Level.INFO, "Archivo descargado: " + fileInfo.toString());
 
+		} catch(ResourcesException e) {
+			LOGGER.severe(e.getMessage());
+			e.printStackTrace();
+			throw e;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new BusinessException("error when processing the excel file download");
+			throw new FileException(e.getMessage());
 		}
 
 		return fileInfo;
@@ -87,9 +96,11 @@ public class FileServiceImpl implements IFileService {
 	 * @return {@link Accident}
 	 * 
 	 * @throws BusinessException
+	 * @throws {@link ExcelException}
+	 * @throws ResourcesException
 	 */
 	@Override
-	public List<Accident> readFile(String name) throws BusinessException {
+	public List<Accident> readFile(String name) throws BusinessException, ExcelException, ResourcesException {
 
 		List<Accident> accidents;
 		FileInputStream excelFile = null;
@@ -102,10 +113,20 @@ public class FileServiceImpl implements IFileService {
 			ExcelUtil excelUtil = new ExcelUtil(Boolean.valueOf(props.getProperty("pap.files.excel.header")));
 			accidents = excelUtil.fromExcelToAccidents(excelFile);
 
+		} catch(ExcelException e) {
+			LOGGER.severe("Error al mapear siniestros del excel: " + e.getMessage());
+			e.printStackTrace();
+			throw e;
+			
+		} catch(ResourcesException e) {
+			LOGGER.severe(e.getMessage());
+			e.printStackTrace();
+			throw e;
+			
 		} catch (Exception e) {
 			LOGGER.severe("Error");
 			e.printStackTrace();
-			throw new BusinessException("error when processing the excel file");
+			throw new BusinessException("Fallo al leer archivo de siniestros: " + e.getMessage());
 
 		} finally {
 			try {

@@ -8,12 +8,15 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Properties;
+import java.util.logging.Logger;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
+import com.experta.pap.controller.AccidentController;
 import com.experta.pap.dao.IWatsonDao;
 import com.experta.pap.exceptions.ConnectionException;
-import com.experta.pap.exceptions.GenericException;
+import com.experta.pap.model.WatsonResponse;
 import com.experta.pap.utils.Resources;
 
 /**
@@ -29,40 +32,38 @@ import com.experta.pap.utils.Resources;
 @Repository
 public class WatsonDaoImpl implements IWatsonDao {
 
+	private static final Logger LOGGER = Logger.getLogger(AccidentController.class.getName());
+
 	/**
 	 * Metodo que realiza la conexion con IBM Watson para predecir siniestros.
 	 * 
 	 * @author Sergio Massa
 	 * 
 	 * @param values de siniestros en formato json
-	 * @return  respuesta obtenida por IBM Watson
-	 * @throws GenericException
+	 * @return respuesta obtenida por IBM Watson {@link WatsonResponse}
 	 * @throws ConnectionException
-	 * 
 	 */
-	public String predictAccidents(String values) throws GenericException, ConnectionException {
+	@Override
+	public WatsonResponse predictAccidents(String values) throws ConnectionException {
 
+		WatsonResponse watsonResponse = new WatsonResponse();
 		StringBuffer jsonStringScoring = new StringBuffer();
 		HttpURLConnection tokenConnection = null;
 		HttpURLConnection scoringConnection = null;
 		BufferedReader tokenBuffer = null;
 		BufferedReader scoringBuffer = null;
+		InputStreamReader inputStream = null;
 
 		String scoringEndpoint = "";
 		String urlCred = "";
 		String usernameCred = "";
 		String passwordCred = "";
 		try {
-			try {
-				Properties props = Resources.getProperties();
-				scoringEndpoint = String.valueOf(props.get("pap.wmlservice.credentials.scoringEndpoint"));
-				urlCred = String.valueOf(props.get("pap.wmlservice.credentials.url"));
-				usernameCred = String.valueOf(props.getProperty("pap.wmlservice.credentials.username"));
-				passwordCred = String.valueOf(props.getProperty("pap.wmlservice.credentials.password"));
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new GenericException("error loading properties file");
-			}
+			Properties props = Resources.getProperties();
+			scoringEndpoint = String.valueOf(props.get("pap.wmlservice.credentials.scoringEndpoint"));
+			urlCred = String.valueOf(props.get("pap.wmlservice.credentials.url"));
+			usernameCred = String.valueOf(props.getProperty("pap.wmlservice.credentials.username"));
+			passwordCred = String.valueOf(props.getProperty("pap.wmlservice.credentials.password"));
 
 			String wml_auth_header = "Basic " + Base64.getEncoder()
 					.encodeToString((usernameCred + ":" + passwordCred).getBytes(StandardCharsets.UTF_8));
@@ -100,16 +101,27 @@ public class WatsonDaoImpl implements IWatsonDao {
 			writer.write(valuesTmp);
 			writer.close();
 
-			scoringBuffer = new BufferedReader(new InputStreamReader(scoringConnection.getInputStream()));
-			String lineScoring;
+			int responseCode = scoringConnection.getResponseCode();
+			if(responseCode == HttpStatus.OK.value()) {
+				inputStream = new InputStreamReader(scoringConnection.getInputStream());
+				scoringBuffer = new BufferedReader(inputStream);
+			} else {
+				inputStream = new InputStreamReader(scoringConnection.getErrorStream());
+				scoringBuffer = new BufferedReader(inputStream);
+			}
 
+			String lineScoring;
 			while ((lineScoring = scoringBuffer.readLine()) != null) {
 				jsonStringScoring.append(lineScoring);
 			}
-
+			watsonResponse.setResponseCode(responseCode);
+			watsonResponse.setResponse(jsonStringScoring.toString());
+			
 		} catch (Exception e) {
+			LOGGER.severe("Error: " + e.getMessage());
 			e.printStackTrace();
-			throw new ConnectionException("error connection with watson");
+			throw new ConnectionException("Fallo en el request a IBM Watson: " + e.getMessage());
+			
 		} finally {
 			try {
 				if (tokenConnection != null) {
@@ -124,9 +136,12 @@ public class WatsonDaoImpl implements IWatsonDao {
 				if (scoringBuffer != null) {
 					scoringBuffer.close();
 				}
+				if (inputStream != null) {
+					inputStream.close();
+				}
 			} catch (Exception e) {
 			}
 		}
-		return jsonStringScoring.toString();
+		return watsonResponse;
 	}
 }

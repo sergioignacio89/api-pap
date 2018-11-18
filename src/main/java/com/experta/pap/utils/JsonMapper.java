@@ -87,14 +87,10 @@ public class JsonMapper {
 			JsonNode node = iterator.next();
 
 			JsonNode index0 = node.get(25);
-//			double percentageForNonJudgment = index0.get(0).asDouble() * 100;
 			double percentageForJudgment = index0.get(1).asDouble() * 100;
 			
-//			percentageForNonJudgment = SiniestroUtil.parsePredictionValue(percentageForNonJudgment);
 			percentageForJudgment = AccidentUtil.parsePredictionValue(percentageForJudgment);
 			
-//			Predictions predictions = new Predictions(String.valueOf(percentageForNonJudgment), String.valueOf(percentageForJudgment));
-//			inferredPercentage.add(predictions);
 			String strPercentageForJudgment = String.valueOf(percentageForJudgment);
 			inferredPercentage.add(strPercentageForJudgment);
 		}
@@ -115,12 +111,11 @@ public class JsonMapper {
 	 * 
 	 * @return lista de {@link AccidentInferred}
 	 * 
-	 * @throws GenericException
 	 * @throws Exception
 	 * 
 	 */
 	public static List<AccidentInferred> convertJsonToAccidentInferred(List<Accident> accidents,
-			List<String> inferredPercentage) throws GenericException, Exception {
+			List<String> inferredPercentage) throws Exception {
 
 		List<AccidentInferred> accidentsInferidos = new ArrayList<>();
 
@@ -143,6 +138,36 @@ public class JsonMapper {
 		}
 
 		return accidentsInferidos;
+	}
+
+
+	/**
+	 * Recupera el error de watson
+	 *
+	 * @author Sergio Massa
+	 * 
+	 * @param jsonStringScoring
+	 * 
+	 * @return mensaje de error
+	 * 
+	 * @throws Exception
+	 * 
+	 */
+	public static String getWatsonError(String jsonStringScoring) throws Exception {
+
+		String errorMessage = "";
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		JsonNode jsonNode = mapper.readTree(jsonStringScoring);
+
+		if (jsonNode.get("errors") != null) {
+
+			JsonNode error = jsonNode.get("errors").get(0);
+			errorMessage = error.get("message").asText();
+		}
+
+		return errorMessage;
 	}
 
 }

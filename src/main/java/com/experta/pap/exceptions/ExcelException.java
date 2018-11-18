@@ -1,18 +1,19 @@
 package com.experta.pap.exceptions;
 
 /**
- * Exception de tipo conexion a IBM Watson
+ * Excepcion referente al parseo del archivo de siniestros
  * 
  * @author Sergio Massa
  */
-public class ConnectionException extends Exception {
+public class ExcelException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ConnectionException(String message) {
+	public ExcelException(String message) {
 		super(message);
 	}
+
 }

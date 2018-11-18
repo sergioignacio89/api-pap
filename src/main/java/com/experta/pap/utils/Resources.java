@@ -3,6 +3,10 @@ package com.experta.pap.utils;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Logger;
+
+import com.experta.pap.exceptions.ResourcesException;
+import com.experta.pap.service.impl.FileServiceImpl;
 
 
 /**
@@ -20,6 +24,8 @@ import java.util.Properties;
  *
  */
 public class Resources {
+	
+	private static final Logger LOGGER = Logger.getLogger(FileServiceImpl.class.getName());
 
 	private static Properties props;
 
@@ -30,10 +36,10 @@ public class Resources {
 	 * 
 	 * @return {@link Properties}
 	 * 
-	 * @throws Exception
+	 * @throws ResourcesException
 	 * 
 	 */
-	public static Properties getProperties() throws Exception {
+	public static Properties getProperties() throws ResourcesException {
 
 		if (props == null) {
 			props = loadPropertyFile();
@@ -48,10 +54,10 @@ public class Resources {
 	 * 
 	 * @return {@link Properties}
 	 * 
-	 * @throws Exception
+	 * @throws ResourcesException
 	 * 
 	 */
-	public static Properties loadPropertyFile() throws Exception {
+	public static Properties loadPropertyFile() throws ResourcesException {
 
 		Properties prop = new Properties();
 		InputStream input = null;
@@ -61,7 +67,13 @@ public class Resources {
 			prop.load(input);
 
 		} catch (Exception e) {
-			throw e;
+			String errorMessage = "Fallo al cargar archivo properties de configuracion. Variable de application server System property es: "
+					+ System.getProperty("app-resources");
+			
+			LOGGER.severe(errorMessage);
+			e.printStackTrace();
+			throw new ResourcesException(errorMessage);
+			
 		} finally {
 
 			if (input != null) {

@@ -1,18 +1,18 @@
 package com.experta.pap.exceptions;
 
 /**
- * Exception de tipo conexion a IBM Watson
+ * Excepcion referente al manejo de archivos
  * 
  * @author Sergio Massa
  */
-public class ConnectionException extends Exception {
+public class FileException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ConnectionException(String message) {
+	public FileException(String message) {
 		super(message);
 	}
 }

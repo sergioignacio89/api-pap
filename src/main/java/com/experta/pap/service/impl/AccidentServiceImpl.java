@@ -2,15 +2,20 @@ package com.experta.pap.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.experta.pap.dao.IWatsonDao;
 import com.experta.pap.exceptions.ConnectionException;
 import com.experta.pap.exceptions.GenericException;
+import com.experta.pap.exceptions.RequestWatsonException;
+import com.experta.pap.exceptions.ResourcesException;
 import com.experta.pap.model.Accident;
 import com.experta.pap.model.AccidentInferred;
+import com.experta.pap.model.WatsonResponse;
 import com.experta.pap.model.WrapperRangeConfiguration;
 import com.experta.pap.service.IAccidentService;
 import com.experta.pap.utils.AccidentUtil;
@@ -30,6 +35,8 @@ import com.experta.pap.utils.StringUtil;
 @Service
 public class AccidentServiceImpl implements IAccidentService {
 
+	private static final Logger LOGGER = Logger.getLogger(FileServiceImpl.class.getName());
+
 	@Autowired
 	private IWatsonDao watsonDao;
 
@@ -42,9 +49,9 @@ public class AccidentServiceImpl implements IAccidentService {
 	 * @return  Lista de siniestros y sus predicciones {@link AccidentInferred}
 	 * 
 	 * @throws ConnectionException
-	 * @throws {@link GenericException}
+	 * @throws {@link Exception}
 	 */
-	public List<AccidentInferred> predictAccidents(List<Accident> accidents) throws ConnectionException, GenericException {
+	public List<AccidentInferred> predictAccidents(List<Accident> accidents) throws ConnectionException, Exception {
 
 		List<AccidentInferred> accidentsInferred = new ArrayList<>();
 		try {
@@ -54,19 +61,22 @@ public class AccidentServiceImpl implements IAccidentService {
 				data.add(AccidentUtil.retrieveData(s));
 			}
 			
-			String jsonStringScoring = watsonDao.predictAccidents(StringUtil.purifyAccident(data.toString()));
+			WatsonResponse watsonResponse = watsonDao.predictAccidents(StringUtil.purifyAccident(data.toString()));
 			
-			List<String> inferredPercentage = JsonMapper.getInferredPercentage(jsonStringScoring);
-			accidentsInferred = JsonMapper.convertJsonToAccidentInferred(accidents, inferredPercentage);
+			if(watsonResponse.getResponseCode() == HttpStatus.OK.value()) {
+				List<String> inferredPercentage = JsonMapper.getInferredPercentage(watsonResponse.getResponse());
+				accidentsInferred = JsonMapper.convertJsonToAccidentInferred(accidents, inferredPercentage);
+				
+			} else {
+				String error = JsonMapper.getWatsonError(watsonResponse.getResponse());
+				LOGGER.severe("Parametros enviados a watson incorrectos: " + error);
+				throw new RequestWatsonException(
+						"Valores enviados a watson inconsistentes con los tipos de datos esperados: " + error);
+			}	
 			
-		} catch (ConnectionException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (GenericException e) {
-			e.printStackTrace();
-			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
 
 		return accidentsInferred;
@@ -83,9 +93,10 @@ public class AccidentServiceImpl implements IAccidentService {
 	 * 
 	 * @see WrapperRangeConfiguration
 	 * @throws GenericException
+	 * @throws ResourcesException 
 	 */
 	@Override
-	public WrapperRangeConfiguration getRangesConfiguration() throws GenericException {
+	public WrapperRangeConfiguration getRangesConfiguration() throws GenericException, ResourcesException {
 
 		WrapperRangeConfiguration ranges = AccidentUtil.getRangeConfiguration();
 		return ranges;
