@@ -14,6 +14,8 @@ import com.experta.pap.exceptions.ParseException;
  */
 public class Accident {
 
+	public static final int NUM_FIELDS = 24;
+	
 	private String id;
 	private String siniestroSeveridad;
 	private String siniestroCausa;
@@ -32,7 +34,7 @@ public class Accident {
 	private String siniestroPrestador;
 	private String empresaCP;
 	private String empresaProvincia;
-	private String juicioTiene;
+//	private String juicioTiene;
 	private String siniestradoNacionalidad;
 	private String siniestradoCP;
 	private String siniestradoSexo;
@@ -58,8 +60,8 @@ public class Accident {
 
 		String[] values = data.split("~");
 
-		if (values.length != 25) {
-			throw new ParseException("Numero de campos incorrectos: " + data);
+		if (values.length != NUM_FIELDS) {
+			throw new ParseException("Numero de campos incorrectos. ID: " + values[0]);
 		}
 		
 		id =values[0];
@@ -80,13 +82,13 @@ public class Accident {
 		siniestroPrestador = values[15];
 		empresaCP = values[16];
 		empresaProvincia = values[17];
-		juicioTiene = values[18];
-		siniestradoNacionalidad = values[19];
-		siniestradoCP = values[20];
-		siniestradoSexo = values[21];
-		siniestradoFhNacimiento = values[22];
-		tipoPoliza = values[23];
-		localidadPoliza = values[24];
+//		juicioTiene = values[18];
+		siniestradoNacionalidad = values[18];
+		siniestradoCP = values[19];
+		siniestradoSexo = values[20];
+		siniestradoFhNacimiento = values[21];
+		tipoPoliza = values[22];
+		localidadPoliza = values[23];
 
 	}
 
@@ -234,13 +236,13 @@ public class Accident {
 		this.empresaProvincia = empresaProvincia;
 	}
 
-	public String getJuicioTiene() {
-		return juicioTiene;
-	}
-
-	public void setJuicioTiene(String juicioTiene) {
-		this.juicioTiene = juicioTiene;
-	}
+//	public String getJuicioTiene() {
+//		return juicioTiene;
+//	}
+//
+//	public void setJuicioTiene(String juicioTiene) {
+//		this.juicioTiene = juicioTiene;
+//	}
 
 	public String getSiniestradoNacionalidad() {
 		return siniestradoNacionalidad;
@@ -294,14 +296,13 @@ public class Accident {
 	public String toString() {
 		return "Accident [id=" + id + ", siniestroSeveridad=" + siniestroSeveridad + ", siniestroCausa="
 				+ siniestroCausa + ", siniestroParteCuerpo=" + siniestroParteCuerpo + ", siniestradoDescUltimoDX="
-				+ siniestradoDescUltimoDX + ", siniestroFKT="
-				+ siniestroFKT + ", siniestroAltaMedica=" + siniestroAltaMedica + ", siniestroDiagnostico="
-				+ siniestroDiagnostico + ", siniestroCirugia=" + siniestroCirugia + ", siniestroEstudios="
-				+ siniestroEstudios + ", siniestroPeriodo=" + siniestroPeriodo + ", siniestroPrestadorProvincia="
-				+ siniestroPrestadorProvincia + ", siniestroCanalIngreso=" + siniestroCanalIngreso
-				+ ", siniestroCaseSML=" + siniestroCaseSML + ", siniestroCaseSupervisor=" + siniestroCaseSupervisor
-				+ ", siniestroPrestador=" + siniestroPrestador + ", empresaCP=" + empresaCP + ", empresaProvincia="
-				+ empresaProvincia + ", juicioTiene=" + juicioTiene + ", siniestradoNacionalidad="
+				+ siniestradoDescUltimoDX + ", siniestroFKT=" + siniestroFKT + ", siniestroAltaMedica="
+				+ siniestroAltaMedica + ", siniestroDiagnostico=" + siniestroDiagnostico + ", siniestroCirugia="
+				+ siniestroCirugia + ", siniestroEstudios=" + siniestroEstudios + ", siniestroPeriodo="
+				+ siniestroPeriodo + ", siniestroPrestadorProvincia=" + siniestroPrestadorProvincia
+				+ ", siniestroCanalIngreso=" + siniestroCanalIngreso + ", siniestroCaseSML=" + siniestroCaseSML
+				+ ", siniestroCaseSupervisor=" + siniestroCaseSupervisor + ", siniestroPrestador=" + siniestroPrestador
+				+ ", empresaCP=" + empresaCP + ", empresaProvincia=" + empresaProvincia + ", siniestradoNacionalidad="
 				+ siniestradoNacionalidad + ", siniestradoCP=" + siniestradoCP + ", siniestradoSexo=" + siniestradoSexo
 				+ ", siniestradoFhNacimiento=" + siniestradoFhNacimiento + ", tipoPoliza=" + tipoPoliza
 				+ ", localidadPoliza=" + localidadPoliza + "]";

@@ -72,9 +72,12 @@ public class ExcelUtil {
 						continue;
 					}
 					String rowValue = readRow(row);
-
-					Accident accident = new Accident(rowValue);
-					accidents.add(accident);
+					try {
+						Accident accident = new Accident(rowValue);
+						accidents.add(accident);
+					} catch(ParseException e) {
+						throw new ParseException("Row[" + (row.getRowNum() +1) + "]- " + e.getMessage());
+					}
 				}
 				i++;
 			}
@@ -129,7 +132,7 @@ public class ExcelUtil {
 		StringBuilder rowValue = new StringBuilder();
 
 		try {
-			for (int i1 = 0; i1 < 25; i1++) {
+			for (int i1 = 0; i1 < Accident.NUM_FIELDS; i1++) {
 				String cellValue;
 
 				Cell cell = row.getCell(i1);
@@ -152,10 +155,9 @@ public class ExcelUtil {
 				case 10:
 				case 16:
 				case 17:
-				case 18: // campo juicioTiene?
+				case 18:
 				case 19:
 				case 20:
-				case 21:
 					if (cell == null || cell.toString().equals("")) {
 						cellValue = DefaultValuesEnum.number.getValue();
 					} else {
@@ -163,7 +165,7 @@ public class ExcelUtil {
 						cellValue = StringUtil.convertToInteger(cellTmp);
 					}
 					break;
-				case 22:
+				case 21:
 					if (cell == null) {
 						cellValue = DefaultValuesEnum.date.getValue();
 					} else {
